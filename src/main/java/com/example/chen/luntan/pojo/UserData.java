@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserData {
-
   private long userId;
-  private String email;
   private String avatar;
   private String name;
   private String sex;
   private long type;
   private java.sql.Timestamp createDate;
   private String userDescribe;
+
 }

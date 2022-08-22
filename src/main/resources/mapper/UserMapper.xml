@@ -9,4 +9,12 @@
         select * from user_data where user_id = #{id};
     </select>
 
+    <insert id="registerUser" parameterType="com.example.chen.luntan.pojo.User">
+        insert into luntan.user(account, password, email,is_activation, activation_data)
+        values (#{account},#{password},#{email},false,#{activationData});
+    </insert>
+
+    <select id="loginUser" parameterType="java.lang.String" resultType="com.example.chen.luntan.pojo.UserData">
+        select * from user_data where user_id = #{id};
+    </select>
 </mapper>
