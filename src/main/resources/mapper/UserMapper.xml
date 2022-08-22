@@ -5,8 +5,8 @@
 
 <mapper namespace="com.example.chen.luntan.mapper.UserMapper">
 
-    <select id="getUserList" resultType="com.example.chen.luntan.pojo.User">
-        select * from user;
+    <select id="getUserData" parameterType="int" resultType="com.example.chen.luntan.pojo.UserData">
+        select * from user_data where user_id = #{id};
     </select>
 
 </mapper>
