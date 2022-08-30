@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
+@Alias("user")
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,6 +17,6 @@ public class User {
   private String account;
   private String password;
   private String email;
-  private String isActivation;
-  private String activationData;
+  private String is_activation;
+  private String activation_data;
 }

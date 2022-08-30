@@ -3,15 +3,17 @@ package com.example.chen.luntan.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
+@Alias("post")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
 
   private long id;
-  private long userId;
-  private long typeId;
+  private long user_id;
+  private long type_id;
   private String images;
   private String title;
   private String content;
@@ -19,8 +21,8 @@ public class Post {
   private long collects;
   private long view;
   private long like;
-  private java.sql.Timestamp createDate;
-  private java.sql.Timestamp updateDate;
+  private java.sql.Timestamp create_date;
+  private java.sql.Timestamp update_date;
   private String top;
   private String essence;
 }

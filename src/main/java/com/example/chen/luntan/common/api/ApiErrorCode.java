@@ -12,6 +12,10 @@ public enum ApiErrorCode implements IErrorCode {
      */
     FAILED(-1, "操作失败"),
     /**
+     * 用户注册
+     */
+    USER_EXISTS(201,"用户存在"),
+    /**
      * 未登录，Token过期
      */
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
@@ -23,6 +27,7 @@ public enum ApiErrorCode implements IErrorCode {
      * 参数校验错误
      */
     VALIDATE_FAILED(404, "参数检验失败");
+
 
     private final Integer code;
     private final String message;

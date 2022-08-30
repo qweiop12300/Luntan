@@ -6,4 +6,101 @@
 <mapper namespace="com.example.chen.luntan.mapper.PostMapper">
 
 
+    <insert id="insertPost" parameterType="post">
+        insert into post(user_id,type_id,images,title,content,create_date,update_date)
+        values(#{user_id},#{type_id},#{images},#{title},#{content},#{create_date},#{update_date});
+    </insert>
+
+    <update id="updatePost" parameterType="post">
+        update post set(user_id,type_id,images,title,content,create_date,update_date)
+        values (#{user_id},#{type_id},#{images},#{title},#{content},#{create_date},#{update_date})
+        where id = #{id};
+    </update>
+
+    <select id="selectPost" resultType="post">
+        select * from post
+        <where>
+        <if test="type_id != -1">
+        AND type_id = #{type_id}
+        </if>
+        </where>
+        order by update_date desc limit #{first},#{last};
+    </select>
+
+    <insert id="like" parameterType="post_like">
+        insert into post_like(user_id,post_id)
+        values(#{user_id},#{post_id})
+    </insert>
+
+    <insert id="collects" parameterType="post_collects">
+        insert into post_collects(user_id,post_id)
+        values(#{user_id},#{post_id})
+    </insert>
+
+    <insert id="commentsLike" parameterType="comments_like">
+        insert into comments_like(user_id,comments_id)
+        values(#{user_id},#{comments_id})
+    </insert>
+
+    <insert id="comments" parameterType="post_comments">
+        insert into post_comments(user_id,post_id,reply_id,create_date,title)
+        values(#{user_id},#{post_id},#{reply_id},#{create_date},#{title})
+    </insert>
+
+    <select id="selectLike" resultType="post_like">
+        select * from post_like
+        <where>
+            <if test="userId!=0">
+                and user_id = #{userId}
+            </if>
+            <if test="post_id!=0">
+                and post_id = #{postId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCollects" resultType="post_collects">
+        select * from post_like
+        <where>
+            <if test="userId!=0">
+                and user_id = #{userId}
+            </if>
+            <if test="post_id!=0">
+                and post_id = #{postId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectComments" resultType="post_comments">
+        select * from post_comments
+        <where>
+            <if test="userId!=0">
+                and user_id = #{userId}
+            </if>
+            <if test="post_id!=0">
+                and post_id = #{postId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCommentsLike" resultType="comments_like">
+        select * from comments_like
+        <where>
+            <if test="userId!=0">
+                and user_id = #{userId}
+            </if>
+            <if test="commentsId!=0">
+                and comments_id = #{commentsId}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateComments" parameterType="post_comments">
+        update post_comments set(user_id,post_id,reply_id,create_date,`like`,title)
+        values(#{user_id},#{post_id},#{reply_id},#{create_date},#{like},#{title})
+        where id = #{id}
+    </update>
+
+
+
 </mapper>

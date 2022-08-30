@@ -5,16 +5,31 @@
 
 <mapper namespace="com.example.chen.luntan.mapper.UserMapper">
 
-    <select id="getUserData" parameterType="int" resultType="com.example.chen.luntan.pojo.UserData">
+    <select id="getUser" parameterType="java.lang.String" resultType="user">
+        select * from user where account = #{account};
+    </select>
+
+    <select id="getUserData" parameterType="long" resultType="user_data">
         select * from user_data where user_id = #{id};
     </select>
 
-    <insert id="registerUser" parameterType="com.example.chen.luntan.pojo.User">
-        insert into luntan.user(account, password, email,is_activation, activation_data)
-        values (#{account},#{password},#{email},false,#{activationData});
+    <insert id="insertUser" parameterType="user">
+        insert into user(account, password, email,is_activation, activation_data)
+        values (#{account},#{password},#{email},false,#{activation_data});
     </insert>
 
-    <select id="loginUser" parameterType="java.lang.String" resultType="com.example.chen.luntan.pojo.UserData">
-        select * from user_data where user_id = #{id};
-    </select>
+    <insert id="insertUserData" parameterType="user_data">
+        insert into user_data(user_id,`name`,create_date)
+        values (#{user_id},#{name},#{create_date});
+    </insert>
+
+    <insert id="insertUserAttention" parameterType="user_attention">
+        insert into user_attention(user_id,followedd_user_id)
+        values (#{user_id},#{followedd_user_id})
+    </insert>
+
+
+
+
+
 </mapper>

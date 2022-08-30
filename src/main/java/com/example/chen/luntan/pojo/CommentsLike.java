@@ -5,17 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
-@Alias("user_data")
+@Alias("comments_like")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserData {
+public class CommentsLike {
 
+  private long comments_id;
   private long user_id;
-  private String avatar;
-  private String name;
-  private String sex;
-  private long type;
-  private java.sql.Timestamp create_date;
-  private String user_describe;
 }

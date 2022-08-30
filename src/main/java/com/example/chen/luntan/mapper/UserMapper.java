@@ -2,6 +2,7 @@ package com.example.chen.luntan.mapper;
 
 
 import com.example.chen.luntan.pojo.User;
+import com.example.chen.luntan.pojo.UserAttention;
 import com.example.chen.luntan.pojo.UserData;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -10,9 +11,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
 
-    UserData getUserData(int id);
+    User getUser(String account);
 
-    int registerUser(User user);
+    UserData getUserData(long id);
 
-    User loginUser(String account, String password);
+    int insertUser(User user);
+
+    int insertUserData(UserData userData);
+
+    int insertUserAttention(UserAttention userAttention);
 }

@@ -13,19 +13,12 @@ public class JwtUtil  {
     private static final String  secret = "Chen";
 
 
-    /**
-     *生成token
-     * @param map :playload信息
-     * @return
-     */
-    public static String getToken(Map<String,String> map){
+
+    public static String getToken(Long id,String name){
             JWTCreator.Builder builder = JWT.create();
             //放入负载信息
-            map.forEach((k,v)->{
-                System.out.println(k+"===========");
-                System.out.println(v+"===========");
-                builder.withClaim(k,v);
-            });
+            builder.withClaim("name",name);
+            builder.withClaim("id",id);
             Calendar instance = Calendar.getInstance();
             //过期时间为2小时
             instance.add(Calendar.SECOND,60*60*2);
