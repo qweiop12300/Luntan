@@ -13,7 +13,9 @@ public class Post {
 
   private long id;
   private long user_id;
+  private UserDataConcise user_data;
   private long type_id;
+  private PostType post_type;
   private String images;
   private String title;
   private String content;

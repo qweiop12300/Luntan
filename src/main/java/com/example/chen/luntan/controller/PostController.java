@@ -3,6 +3,7 @@ package com.example.chen.luntan.controller;
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.ApiResult;
 import com.example.chen.luntan.pojo.Post;
+import com.example.chen.luntan.pojo.PostComments;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.PostService;
@@ -52,5 +53,11 @@ public class PostController extends BaseController{
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
 
     }
+
+    @RequestMapping(value = "/getPostComments",method = RequestMethod.POST)
+    public ApiResult<List<PostComments>> getPostComments(int postId){
+        return ApiResult.success(postService.getPostComments(0,postId));
+    }
+
 
 }

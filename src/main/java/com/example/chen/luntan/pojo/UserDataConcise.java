@@ -5,16 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
-@Alias("user_news")
+@Alias("user_data_concise")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserNews {
-
-  private long id;
-  private long user_id;
-  private long produce_user_id;
-  private long type;
-  private long post_id;
-  private java.sql.Timestamp create_date;
+public class UserDataConcise {
+    private String avatar;
+    private String name;
+    private String sex;
+    private long type;
 }

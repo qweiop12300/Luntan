@@ -13,6 +13,7 @@ public class PostComments {
 
   private long id;
   private long user_id;
+  private UserDataConcise user_data;
   private long post_id;
   private long reply_id;
   private java.sql.Timestamp create_date;

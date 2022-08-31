@@ -25,13 +25,15 @@ public interface PostMapper {
 
     List<PostLike> selecctLike(long userId,long postId);
 
-    List<PostCollects> selecctCollects(long userId,long postId);
+    List<PostCollects> selectCollects(long userId, long postId);
 
-    List<PostComments> selecctComments(long userId,long postId);
+    List<PostComments> selectComments(long userId,long postId);
 
-    List<CommentsLike> selecctCommentsLike(long userId,long commentsId);
+    List<CommentsLike> selectCommentsLike(long userId,long commentsId);
 
     int updatePost(Post post);
     int updateComments(PostComments postComments);
+
+    long getPostUserId(long postId);
 
 }

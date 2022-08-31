@@ -2,6 +2,7 @@ package com.example.chen.luntan.service.Impl;
 
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.IErrorCode;
+import com.example.chen.luntan.mapper.NewsMapper;
 import com.example.chen.luntan.mapper.UserMapper;
 import com.example.chen.luntan.pojo.User;
 import com.example.chen.luntan.pojo.UserData;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    NewsMapper newsMapper;
 
     @Override
     public UserData getUserData(int id) {

@@ -17,8 +17,39 @@
         where id = #{id};
     </update>
 
-    <select id="selectPost" resultType="post">
-        select * from post
+    <resultMap id="postMap" type="post">
+        <id  column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="type_id" property="type_id"/>
+        <result column="images" property="images"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="create_date" property="create_date"/>
+        <result column="update_date" property="update_date"/>
+        <result column="comments" property="comments"/>
+        <result column="collects" property="collects"/>
+        <result column="view" property="view"/>
+        <result column="`like`" property="like"/>
+        <result column="top" property="top"/>
+        <result column="essence" property="essence"/>
+        <association property="user_data" resultMap="userDataConciseMap"/>
+        <association property="post_type" resultMap="postTypeMap"/>
+    </resultMap>
+
+    <resultMap id="userDataConciseMap" type="user_data_concise">
+        <result property="avatar" column="avatar"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <resultMap id="postTypeMap" type="post_type">
+        <id property="id" column="pt_id"/>
+        <result property="title" column="pt_title"/>
+    </resultMap>
+
+    <select id="selectPost" resultMap="postMap">
+        select p.id, p.user_id, type_id, images, p.title, content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
         <where>
         <if test="type_id != -1">
         AND type_id = #{type_id}
@@ -59,6 +90,7 @@
         </where>
     </select>
 
+
     <select id="selectCollects" resultType="post_collects">
         select * from post_like
         <where>
@@ -70,15 +102,24 @@
             </if>
         </where>
     </select>
-
-    <select id="selectComments" resultType="post_comments">
-        select * from post_comments
+    <resultMap id="selectCommentsMap" type="post_comments">
+        <id  column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="post_id" property="post_id"/>
+        <result column="reply_id" property="reply_id"/>
+        <result column="title" property="title"/>
+        <result column="create_date" property="create_date"/>
+        <result column="`like`" property="like"/>
+        <association property="user_data" resultMap="userDataConciseMap"/>
+    </resultMap>
+    <select id="selectComments" resultMap="selectCommentsMap">
+        select pc.id, pc.user_id, post_id, reply_id, pc.create_date, `like`, title, avatar, name, sex, type from post_comments pc join user_data ud on pc.user_id = ud.user_id
         <where>
             <if test="userId!=0">
-                and user_id = #{userId}
+                and pc.user_id = #{userId}
             </if>
-            <if test="post_id!=0">
-                and post_id = #{postId}
+            <if test="postId!=0">
+                and pc.post_id = #{postId}
             </if>
         </where>
     </select>
@@ -101,6 +142,9 @@
         where id = #{id}
     </update>
 
+    <select id="getPostUserId" resultType="long" parameterType="long">
+        select user_id from post where id = #{postId}
+    </select>
 
 
 </mapper>

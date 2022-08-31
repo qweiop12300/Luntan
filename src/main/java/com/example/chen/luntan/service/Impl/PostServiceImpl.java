@@ -2,9 +2,11 @@ package com.example.chen.luntan.service.Impl;
 
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.IErrorCode;
+import com.example.chen.luntan.mapper.NewsMapper;
 import com.example.chen.luntan.mapper.PostMapper;
 import com.example.chen.luntan.pojo.Post;
 import com.example.chen.luntan.pojo.PostComments;
+import com.example.chen.luntan.pojo.UserNews;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.PostService;
@@ -20,9 +22,14 @@ public class PostServiceImpl implements PostService {
     @Autowired
     PostMapper postMapper;
 
+    @Autowired
+    NewsMapper newsMapper;
+
     @Override
     public List<Post> getListPost(int pg, int pz, int type_id) {
-        return postMapper.selectPost(pg*pz,pz*(pg+1),type_id);
+        List<Post> postList = postMapper.selectPost(pg*pz,pz*(pg+1),type_id);
+        System.out.println(postList);
+        return postList;
     }
 
     @Override
@@ -53,15 +60,23 @@ public class PostServiceImpl implements PostService {
         postComments.setUser_id(postCommentsDto.getUserId());
         postComments.setReply_id(postCommentsDto.getReplyId());
         postComments.setCreate_date(new Timestamp(System.currentTimeMillis()));
-        if(postMapper.comments(postComments)>0)return ApiErrorCode.SUCCESS;
+        if(postMapper.comments(postComments)>0){
+            UserNews userNews = new UserNews();
+            userNews.setPost_id(postCommentsDto.getPostId());
+            userNews.setUser_id(postCommentsDto.getUserId());
+            userNews.setProduce_user_id(postMapper.getPostUserId(postCommentsDto.getPostId()));
+            userNews.setType(2);
+            userNews.setCreate_date(new Timestamp(System.currentTimeMillis()));
+            newsMapper.insertNews(userNews);
+            return ApiErrorCode.SUCCESS;
+        }
         return ApiErrorCode.FAILED;
     }
 
     @Override
     public List<PostComments> getPostComments(int userId, int postId) {
-        return postMapper.selecctComments(userId,postId);
+        return postMapper.selectComments(userId,postId);
     }
-
 
 
 }
