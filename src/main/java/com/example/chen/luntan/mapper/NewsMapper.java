@@ -4,8 +4,12 @@ import com.example.chen.luntan.pojo.UserNews;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface NewsMapper {
     long insertNews(UserNews userNews);
+    List<UserNews> selectNews(long produce_user_id);
+    long deleteNews(long produce_user_id);
 }

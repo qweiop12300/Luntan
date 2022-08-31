@@ -7,6 +7,7 @@ import com.example.chen.luntan.mapper.PostMapper;
 import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
+import com.example.chen.luntan.service.NewsService;
 import com.example.chen.luntan.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class PostServiceImpl implements PostService {
     PostMapper postMapper;
 
     @Autowired
-    NewsMapper newsMapper;
+    NewsService newsService;
 
     @Override
     public List<Post> getListPost(int pg, int pz, int type_id) {
@@ -68,7 +69,7 @@ public class PostServiceImpl implements PostService {
                     .create_date(new Timestamp(System.currentTimeMillis()))
                     .type(2)
                     .build();
-            newsMapper.insertNews(userNews);
+            newsService.sendNews(userNews);
             return ApiErrorCode.SUCCESS;
         }
         return ApiErrorCode.FAILED;
@@ -98,7 +99,7 @@ public class PostServiceImpl implements PostService {
                         .create_date(new Timestamp(System.currentTimeMillis()))
                         .type(4)
                         .build();
-                newsMapper.insertNews(userNews);
+                newsService.sendNews(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }
@@ -125,7 +126,7 @@ public class PostServiceImpl implements PostService {
                         .create_date(new Timestamp(System.currentTimeMillis()))
                         .type(3)
                         .build();
-                newsMapper.insertNews(userNews);
+                newsService.sendNews(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }
@@ -152,7 +153,7 @@ public class PostServiceImpl implements PostService {
                         .create_date(new Timestamp(System.currentTimeMillis()))
                         .type(4)
                         .build();
-                newsMapper.insertNews(userNews);
+                newsService.sendNews(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }

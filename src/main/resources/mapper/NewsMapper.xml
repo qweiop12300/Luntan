@@ -6,8 +6,18 @@
 <mapper namespace="com.example.chen.luntan.mapper.NewsMapper">
 
     <insert id="insertNews" parameterType="user_news">
-        insert into user_news(user_id,produce_user_id,`type`,post_id,create_date)
-        values(#{user_id},#{produce_user_id},#{type},#{post_id},#{create_date});
+        insert into user_news(user_id,produce_user_id,`type`,post_id,create_date,content)
+        values(#{user_id},#{produce_user_id},#{type},#{post_id},#{create_date},#{content});
     </insert>
+
+    <select id="selectNews" resultType="user_news">
+        select * from user_news
+        where produce_user_id = #{produce_user_id};
+    </select>
+
+    <delete id="deleteNews">
+        delete from user_news
+        where produce_user_id = #{produce_user_id};
+    </delete>
 
 </mapper>

@@ -19,4 +19,5 @@ public class UserNews {
   private long type;
   private long post_id;
   private java.sql.Timestamp create_date;
+  private String content;
 }

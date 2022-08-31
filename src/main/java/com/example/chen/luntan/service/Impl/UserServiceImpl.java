@@ -7,6 +7,7 @@ import com.example.chen.luntan.mapper.UserMapper;
 import com.example.chen.luntan.pojo.User;
 import com.example.chen.luntan.pojo.UserData;
 import com.example.chen.luntan.pojo.dto.UserDto;
+import com.example.chen.luntan.service.NewsService;
 import com.example.chen.luntan.service.UserService;
 import com.example.chen.luntan.util.MD5Utils;
 import com.example.chen.luntan.util.RandomStringUtil;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
-    NewsMapper newsMapper;
+    NewsService newsService;
 
     @Override
     public UserData getUserData(int id) {
