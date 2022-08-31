@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         if(userMapper.insertUser(user)>0){
             UserData userData = new UserData();
-            user = userMapper.getUser(dto.getAccount());
+            System.out.println(user);
             userData.setUser_id(user.getId());
             userData.setName("用户"+RandomStringUtil.getRandomString(10));
             userData.setCreate_date(new Timestamp(System.currentTimeMillis()));

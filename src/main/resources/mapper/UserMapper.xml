@@ -13,7 +13,7 @@
         select * from user_data where user_id = #{id};
     </select>
 
-    <insert id="insertUser" parameterType="user">
+    <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user(account, password, email,is_activation, activation_data)
         values (#{account},#{password},#{email},false,#{activation_data});
     </insert>

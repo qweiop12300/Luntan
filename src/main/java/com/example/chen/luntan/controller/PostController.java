@@ -59,5 +59,32 @@ public class PostController extends BaseController{
         return ApiResult.success(postService.getPostComments(0,postId));
     }
 
+    @RequestMapping(value = "/like",method = RequestMethod.POST)
+    public ApiResult<String> like(int postId){
+        long userId = getUserId();
+        if(userId!=-1){
+            return ApiResult.failed(postService.like((int) userId,postId));
+        }
+        return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/collects",method = RequestMethod.POST)
+    public ApiResult<String> collects(int postId){
+        long userId = getUserId();
+        if(userId!=-1){
+            return ApiResult.failed(postService.collects((int) userId,postId));
+        }
+        return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/commentsLike",method = RequestMethod.POST)
+    public ApiResult<String> commentsLike(int commentsId){
+        long userId = getUserId();
+        if(userId!=-1){
+            return ApiResult.failed(postService.commentsLike( commentsId, (int) userId));
+        }
+        return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
 
 }

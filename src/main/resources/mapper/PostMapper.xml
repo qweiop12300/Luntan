@@ -73,6 +73,18 @@
         values(#{user_id},#{comments_id})
     </insert>
 
+    <delete id="deleteLike" parameterType="post_like">
+        delete from post_like where user_id = #{user_id} and post_id = #{post_id};
+    </delete>
+
+    <delete id="deleteCollects" parameterType="post_collects">
+        delete from post_collects where user_id = #{user_id} and post_id = #{post_id};
+    </delete>
+
+    <delete id="deleteCommentsLike" parameterType="comments_like">
+        delete from comments_like where user_id = #{user_id} and comments_id = #{comments_id};
+    </delete>
+
     <insert id="comments" parameterType="post_comments">
         insert into post_comments(user_id,post_id,reply_id,create_date,title)
         values(#{user_id},#{post_id},#{reply_id},#{create_date},#{title})
@@ -84,7 +96,7 @@
             <if test="userId!=0">
                 and user_id = #{userId}
             </if>
-            <if test="post_id!=0">
+            <if test="postId!=0">
                 and post_id = #{postId}
             </if>
         </where>
@@ -97,7 +109,7 @@
             <if test="userId!=0">
                 and user_id = #{userId}
             </if>
-            <if test="post_id!=0">
+            <if test="postId!=0">
                 and post_id = #{postId}
             </if>
         </where>
@@ -145,6 +157,17 @@
     <select id="getPostUserId" resultType="long" parameterType="long">
         select user_id from post where id = #{postId}
     </select>
+
+    <select id="getCommentsUserId" parameterType="long" resultType="long">
+        select user_id from post_comments
+        where id = #{id}
+    </select>
+
+    <select id="getCommentsPostId" parameterType="long" resultType="long">
+        select post_id from post_comments
+        where id = #{id}
+    </select>
+
 
 
 </mapper>

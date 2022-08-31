@@ -4,9 +4,7 @@ import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.IErrorCode;
 import com.example.chen.luntan.mapper.NewsMapper;
 import com.example.chen.luntan.mapper.PostMapper;
-import com.example.chen.luntan.pojo.Post;
-import com.example.chen.luntan.pojo.PostComments;
-import com.example.chen.luntan.pojo.UserNews;
+import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.PostService;
@@ -61,12 +59,13 @@ public class PostServiceImpl implements PostService {
         postComments.setReply_id(postCommentsDto.getReplyId());
         postComments.setCreate_date(new Timestamp(System.currentTimeMillis()));
         if(postMapper.comments(postComments)>0){
-            UserNews userNews = new UserNews();
-            userNews.setPost_id(postCommentsDto.getPostId());
-            userNews.setUser_id(postCommentsDto.getUserId());
-            userNews.setProduce_user_id(postMapper.getPostUserId(postCommentsDto.getPostId()));
-            userNews.setType(2);
-            userNews.setCreate_date(new Timestamp(System.currentTimeMillis()));
+            UserNews userNews = UserNews.builder()
+                    .user_id(postCommentsDto.getUserId())
+                    .produce_user_id(postMapper.getPostUserId(postCommentsDto.getPostId()))
+                    .post_id(postCommentsDto.getPostId())
+                    .create_date(new Timestamp(System.currentTimeMillis()))
+                    .type(2)
+                    .build();
             newsMapper.insertNews(userNews);
             return ApiErrorCode.SUCCESS;
         }
@@ -78,5 +77,79 @@ public class PostServiceImpl implements PostService {
         return postMapper.selectComments(userId,postId);
     }
 
+    @Override
+    public IErrorCode collects(int userId,int postId) {
+        PostCollects postCollects = new PostCollects();
+        postCollects.setPost_id(postId);
+        postCollects.setUser_id(userId);
+        if(postMapper.selectCollects(userId,postId).size()>0){
+            if(postMapper.deleteCollects(postCollects)>0)return ApiErrorCode.CANCEL;
+        }
+        else {
+            if(postMapper.collects(postCollects)>0){
 
+                UserNews userNews = UserNews.builder()
+                        .user_id(userId)
+                        .produce_user_id(postMapper.getPostUserId(postId))
+                        .post_id(postId)
+                        .create_date(new Timestamp(System.currentTimeMillis()))
+                        .type(4)
+                        .build();
+                newsMapper.insertNews(userNews);
+
+                return ApiErrorCode.SUCCESS;
+            }
+        }
+        return ApiErrorCode.FAILED;
+    }
+
+    @Override
+    public IErrorCode like(int userId,int postId) {
+        PostLike  postLike = new PostLike();
+        postLike.setPost_id(postId);
+        postLike.setUser_id(userId);
+        if(postMapper.selectLike(userId,postId).size()>0){
+            if(postMapper.deleteLike(postLike)>0)return ApiErrorCode.CANCEL;
+        }
+        else {
+            if(postMapper.like(postLike)>0){
+                UserNews userNews = UserNews.builder()
+                        .user_id(userId)
+                        .produce_user_id(postMapper.getPostUserId(postId))
+                        .post_id(postId)
+                        .create_date(new Timestamp(System.currentTimeMillis()))
+                        .type(3)
+                        .build();
+                newsMapper.insertNews(userNews);
+
+                return ApiErrorCode.SUCCESS;
+            }
+        }
+        return ApiErrorCode.FAILED;
+    }
+
+    @Override
+    public IErrorCode commentsLike(int commentsId, int userId) {
+        CommentsLike commentsLike = new CommentsLike();
+        commentsLike.setComments_id(commentsId);
+        commentsLike.setUser_id(userId);
+        if(postMapper.selectCommentsLike(userId,commentsId).size()>0){
+            if(postMapper.deleteCommentsLike(commentsLike)>0)return ApiErrorCode.CANCEL;
+        }
+        else {
+            if(postMapper.commentsLike(commentsLike)>0){
+                UserNews userNews = UserNews.builder()
+                        .user_id(userId)
+                        .produce_user_id(postMapper.getCommentsUserId(commentsId))
+                        .post_id(postMapper.getCommentsPostId(commentsId))
+                        .create_date(new Timestamp(System.currentTimeMillis()))
+                        .type(4)
+                        .build();
+                newsMapper.insertNews(userNews);
+
+                return ApiErrorCode.SUCCESS;
+            }
+        }
+        return ApiErrorCode.FAILED;
+    }
 }

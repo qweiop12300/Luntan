@@ -23,7 +23,13 @@ public interface PostMapper {
 
     int commentsLike(CommentsLike commentsLike);
 
-    List<PostLike> selecctLike(long userId,long postId);
+    int deleteCollects(PostCollects postCollects);
+
+    int deleteLike(PostLike postLike);
+
+    int deleteCommentsLike(CommentsLike commentsLike);
+
+    List<PostLike> selectLike(long userId, long postId);
 
     List<PostCollects> selectCollects(long userId, long postId);
 
@@ -35,5 +41,9 @@ public interface PostMapper {
     int updateComments(PostComments postComments);
 
     long getPostUserId(long postId);
+
+    long getCommentsUserId(long id);
+
+    long getCommentsPostId(long id);
 
 }

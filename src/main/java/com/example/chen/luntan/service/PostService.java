@@ -17,5 +17,12 @@ public interface PostService {
 
     public IErrorCode setPostComments(PostCommentsDto postCommentsDto);
 
-    public List<PostComments> getPostComments(int userId,int PostId);
+    public List<PostComments> getPostComments(int userId,int postId);
+
+    public IErrorCode collects(int userId,int postId);
+
+    public IErrorCode like(int userId,int postId);
+
+    public IErrorCode commentsLike(int commentsId,int userId);
+
 }

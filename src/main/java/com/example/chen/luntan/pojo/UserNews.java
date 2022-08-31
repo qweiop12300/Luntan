@@ -1,12 +1,14 @@
 package com.example.chen.luntan.pojo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
 @Alias("user_news")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserNews {
