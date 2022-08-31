@@ -31,6 +31,13 @@ public class PostController extends BaseController{
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
     }
 
+
+    @RequestMapping(value = "/getPost",method = RequestMethod.POST)
+    public ApiResult<Post> getPost(int postId){
+        return ApiResult.success(postService.getPost(postId));
+    }
+
+
     @RequestMapping(value = "/getListPost",method = RequestMethod.POST)
     public ApiResult<List<Post>> getListPost(Integer pg, Integer pz, Integer type_id){
         if (pg==null||pz==null){

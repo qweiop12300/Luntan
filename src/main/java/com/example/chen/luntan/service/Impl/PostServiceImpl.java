@@ -32,7 +32,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getPost(int id) {
-        return null;
+        postMapper.addPostView(id);
+        return postMapper.getPost(id);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class PostServiceImpl implements PostService {
         postComments.setReply_id(postCommentsDto.getReplyId());
         postComments.setCreate_date(new Timestamp(System.currentTimeMillis()));
         if(postMapper.comments(postComments)>0){
+            postMapper.addPostComments((int) postCommentsDto.getPostId(),1);
             UserNews userNews = UserNews.builder()
                     .user_id(postCommentsDto.getUserId())
                     .produce_user_id(postMapper.getPostUserId(postCommentsDto.getPostId()))
@@ -83,11 +85,12 @@ public class PostServiceImpl implements PostService {
         postCollects.setPost_id(postId);
         postCollects.setUser_id(userId);
         if(postMapper.selectCollects(userId,postId).size()>0){
+            postMapper.addPostCollects(postId,0);
             if(postMapper.deleteCollects(postCollects)>0)return ApiErrorCode.CANCEL;
         }
         else {
             if(postMapper.collects(postCollects)>0){
-
+                postMapper.addPostCollects(postId,1);
                 UserNews userNews = UserNews.builder()
                         .user_id(userId)
                         .produce_user_id(postMapper.getPostUserId(postId))
@@ -109,10 +112,12 @@ public class PostServiceImpl implements PostService {
         postLike.setPost_id(postId);
         postLike.setUser_id(userId);
         if(postMapper.selectLike(userId,postId).size()>0){
+            postMapper.addPostLike(postId,0);
             if(postMapper.deleteLike(postLike)>0)return ApiErrorCode.CANCEL;
         }
         else {
             if(postMapper.like(postLike)>0){
+                postMapper.addPostLike(postId,1);
                 UserNews userNews = UserNews.builder()
                         .user_id(userId)
                         .produce_user_id(postMapper.getPostUserId(postId))
@@ -134,10 +139,12 @@ public class PostServiceImpl implements PostService {
         commentsLike.setComments_id(commentsId);
         commentsLike.setUser_id(userId);
         if(postMapper.selectCommentsLike(userId,commentsId).size()>0){
+            postMapper.addPostCommentsLike(commentsId,0);
             if(postMapper.deleteCommentsLike(commentsLike)>0)return ApiErrorCode.CANCEL;
         }
         else {
             if(postMapper.commentsLike(commentsLike)>0){
+                postMapper.addPostCommentsLike(commentsId,1);
                 UserNews userNews = UserNews.builder()
                         .user_id(userId)
                         .produce_user_id(postMapper.getCommentsUserId(commentsId))

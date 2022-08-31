@@ -17,6 +17,61 @@
         where id = #{id};
     </update>
 
+    <update id="updateComments" parameterType="post_comments">
+        update post_comments set(user_id,post_id,reply_id,create_date,`like`,title)
+        values(#{user_id},#{post_id},#{reply_id},#{create_date},#{like},#{title})
+        where id = #{id}
+    </update>
+
+    <update id="addPostLike">
+        <if test="isAdd==1">
+            update post set `like` = `like`+1
+            where id = #{id};
+        </if>
+        <if test="isAdd==0">
+            update post set `like` = `like`-1
+            where id = #{id};
+        </if>
+    </update>
+
+    <update id="addPostView">
+        update post set `view` = `view`+1
+        where id = #{id};
+    </update>
+
+    <update id="addPostCollects">
+        <if test="isAdd==1">
+            update post set collects = collects+1
+            where id = #{id};
+        </if>
+        <if test="isAdd==0">
+            update post set collects = collects-1
+            where id = #{id};
+        </if>
+    </update>
+
+    <update id="addPostComments">
+        <if test="isAdd==1">
+            update post set comments = comments+1
+            where id = #{id};
+        </if>
+        <if test="isAdd==0">
+            update post set comments = comments-1
+            where id = #{id};
+        </if>
+    </update>
+
+    <update id="addPostCommentsLike">
+        <if test="isAdd==1">
+            update post_comments set `like` = `like`+1
+            where id = #{id};
+        </if>
+        <if test="isAdd==0">
+            update post_comments set `like` = `like`-1
+            where id = #{id};
+        </if>
+    </update>
+
     <resultMap id="postMap" type="post">
         <id  column="id" property="id"/>
         <result column="user_id" property="user_id"/>
@@ -49,13 +104,18 @@
     </resultMap>
 
     <select id="selectPost" resultMap="postMap">
-        select p.id, p.user_id, type_id, images, p.title, content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+        select p.id, p.user_id, type_id, images, p.title, SUBSTR(content,1,40) content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
         <where>
         <if test="type_id != -1">
         AND type_id = #{type_id}
         </if>
         </where>
         order by update_date desc limit #{first},#{last};
+    </select>
+
+    <select id="getPost" resultMap="postMap">
+        select p.id, p.user_id, type_id, images, p.title,content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+        where p.id = #{id}
     </select>
 
     <insert id="like" parameterType="post_like">
@@ -104,7 +164,7 @@
 
 
     <select id="selectCollects" resultType="post_collects">
-        select * from post_like
+        select * from post_collects
         <where>
             <if test="userId!=0">
                 and user_id = #{userId}
@@ -147,12 +207,6 @@
             </if>
         </where>
     </select>
-
-    <update id="updateComments" parameterType="post_comments">
-        update post_comments set(user_id,post_id,reply_id,create_date,`like`,title)
-        values(#{user_id},#{post_id},#{reply_id},#{create_date},#{like},#{title})
-        where id = #{id}
-    </update>
 
     <select id="getPostUserId" resultType="long" parameterType="long">
         select user_id from post where id = #{postId}

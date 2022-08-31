@@ -42,8 +42,19 @@ public interface PostMapper {
 
     long getPostUserId(long postId);
 
+    Post getPost(long id);
+
     long getCommentsUserId(long id);
 
     long getCommentsPostId(long id);
+
+    long addPostLike(int id,int isAdd);
+    long addPostView(int id);
+    long addPostComments(int id,int isAdd);
+    long addPostCollects(int id,int isAdd);
+    long addPostCommentsLike(int id,int isAdd);
+
+
+
 
 }
