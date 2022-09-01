@@ -3,6 +3,7 @@ package com.example.chen.luntan.service;
 import com.example.chen.luntan.common.api.IErrorCode;
 import com.example.chen.luntan.pojo.Post;
 import com.example.chen.luntan.pojo.PostComments;
+import com.example.chen.luntan.pojo.PostType;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 
@@ -15,6 +16,8 @@ public interface PostService {
 
     public IErrorCode setPost(PostDto postDto);
 
+    public IErrorCode updatePost(PostDto postDto);
+
     public IErrorCode setPostComments(PostCommentsDto postCommentsDto);
 
     public List<PostComments> getPostComments(int userId,int postId);
@@ -23,6 +26,9 @@ public interface PostService {
 
     public IErrorCode like(int userId,int postId);
 
-    public IErrorCode commentsLike(int commentsId,int userId);
+    public IErrorCode commentsLike(int post_id,int commentsId,int userId);
 
+    public List<PostType> getPostTypeList();
+
+    public IErrorCode deletePost(int user_id,int post_id);
 }

@@ -14,7 +14,7 @@ public class UserData {
   private long user_id;
   private String avatar;
   private String name;
-  private String sex;
+  private Boolean sex;
   private long type;
   private String user_describe;
   private java.sql.Timestamp create_date;

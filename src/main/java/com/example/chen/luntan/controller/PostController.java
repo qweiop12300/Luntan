@@ -4,6 +4,7 @@ import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.ApiResult;
 import com.example.chen.luntan.pojo.Post;
 import com.example.chen.luntan.pojo.PostComments;
+import com.example.chen.luntan.pojo.PostType;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.PostService;
@@ -31,6 +32,26 @@ public class PostController extends BaseController{
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
     }
 
+    @RequestMapping(value = "/upPost",method = RequestMethod.POST)
+    public ApiResult<String> upPost(@RequestBody PostDto postDto){
+        long userId = getUserId();
+        if(userId!=-1){
+            postDto.setUserId(userId);
+            return ApiResult.failed(postService.updatePost(postDto));
+        }
+        return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/dePost",method = RequestMethod.POST)
+    public ApiResult<String> dePost(int postId){
+        long userId = getUserId();
+        if(userId!=-1){
+            return ApiResult.failed(postService.deletePost((int) userId,postId));
+        }
+        return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+
 
     @RequestMapping(value = "/getPost",method = RequestMethod.POST)
     public ApiResult<Post> getPost(int postId){
@@ -43,11 +64,7 @@ public class PostController extends BaseController{
         if (pg==null||pz==null){
             return ApiResult.failed(ApiErrorCode.VALIDATE_FAILED);
         }
-        if (type_id==null){
-            return ApiResult.success(postService.getListPost(pg, pz,-1));
-        }else{
-            return ApiResult.success(postService.getListPost(pg, pz, type_id));
-        }
+        return ApiResult.success(postService.getListPost(pg, pz, type_id));
     }
 
     @RequestMapping(value = "/setPostComments",method = RequestMethod.POST)
@@ -85,12 +102,17 @@ public class PostController extends BaseController{
     }
 
     @RequestMapping(value = "/commentsLike",method = RequestMethod.POST)
-    public ApiResult<String> commentsLike(int commentsId){
+    public ApiResult<String> commentsLike(int postId,int commentsId){
         long userId = getUserId();
         if(userId!=-1){
-            return ApiResult.failed(postService.commentsLike( commentsId, (int) userId));
+            return ApiResult.failed(postService.commentsLike(postId,commentsId, (int) userId));
         }
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/getPostType",method = RequestMethod.POST)
+    public ApiResult<List<PostType>> getPostType(){
+        return ApiResult.success(postService.getPostTypeList());
     }
 
 

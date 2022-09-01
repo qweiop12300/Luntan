@@ -17,6 +17,6 @@ public class User {
   private String account;
   private String password;
   private String email;
-  private String is_activation;
+  private Boolean is_activation;
   private String activation_data;
 }

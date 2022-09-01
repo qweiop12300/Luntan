@@ -26,14 +26,6 @@ public class BaseController {
         return Long.valueOf(-1);
     }
 
-    public String getUsername(){
-        if (isLogin()){
-            String token = request.getHeader(JwtUtil.HEADER_TOKEN_KEY);
-            return JwtUtil.getToken(token).getClaim("name").asString();
-        }
-        return null;
-    }
-
 
     public String updataToken(String token){
         //验证token
@@ -58,6 +50,7 @@ public class BaseController {
             JwtUtil.verify(token);
         }catch (TokenExpiredException e){
             setToken(updataToken(token));
+            return false;
         }catch (Exception e){
             return false;
         }

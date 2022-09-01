@@ -10,10 +10,15 @@ import java.util.List;
 
 public interface UserService {
 
-    public UserData getUserData(int id);
+    public UserData getUserData(long id);
 
     public IErrorCode registerUser(UserDto user);
 
     public UserData loginUser(String account, String password);
 
+    public IErrorCode attention(long  user_id,long followed_user_id);
+
+    public IErrorCode activation(long user_id,String activation_data);
+
+    public IErrorCode updateUserData(UserData userData);
 }

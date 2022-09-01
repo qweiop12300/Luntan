@@ -25,6 +25,6 @@ public class Post {
   private long like;
   private java.sql.Timestamp create_date;
   private java.sql.Timestamp update_date;
-  private String top;
-  private String essence;
+  private Boolean top;
+  private Boolean essence;
 }

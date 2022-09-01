@@ -2,7 +2,6 @@ package com.example.chen.luntan.service.Impl;
 
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.IErrorCode;
-import com.example.chen.luntan.mapper.NewsMapper;
 import com.example.chen.luntan.mapper.PostMapper;
 import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
@@ -50,6 +49,25 @@ public class PostServiceImpl implements PostService {
         post.setUser_id(postDto.getUserId());
         if(postMapper.insertPost(post)>0)return ApiErrorCode.SUCCESS;
         return ApiErrorCode.FAILED;
+    }
+
+    @Override
+    public IErrorCode updatePost(PostDto postDto) {
+        if(postDto.getUserId()==0||postDto.getId()==0){
+            return ApiErrorCode.VALIDATE_FAILED;
+        }
+        Post post = postMapper.getPost(postDto.getId());
+        System.out.println(post);
+        if (post.getUser_id()==postDto.getUserId()){
+            post.setImages(postDto.getImages());
+            post.setUpdate_date(new Timestamp(System.currentTimeMillis()));
+            post.setContent(postDto.getContent());
+            post.setTitle(postDto.getTitle());
+            post.setType_id(postDto.getTypeId());
+            if (postMapper.updatePost(post)>0)return ApiErrorCode.SUCCESS;
+            return ApiErrorCode.FAILED;
+        }
+        return ApiErrorCode.FORBIDDEN;
     }
 
     @Override
@@ -135,10 +153,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public IErrorCode commentsLike(int commentsId, int userId) {
+    public IErrorCode commentsLike(int postId,int commentsId, int userId) {
         CommentsLike commentsLike = new CommentsLike();
         commentsLike.setComments_id(commentsId);
         commentsLike.setUser_id(userId);
+        commentsLike.setPost_id(postId);
         if(postMapper.selectCommentsLike(userId,commentsId).size()>0){
             postMapper.addPostCommentsLike(commentsId,0);
             if(postMapper.deleteCommentsLike(commentsLike)>0)return ApiErrorCode.CANCEL;
@@ -159,5 +178,20 @@ public class PostServiceImpl implements PostService {
             }
         }
         return ApiErrorCode.FAILED;
+    }
+
+    @Override
+    public List<PostType> getPostTypeList() {
+        return postMapper.selectPostType();
+    }
+
+    @Override
+    public IErrorCode deletePost(int user_id,int post_id) {
+        Post post = postMapper.getPost(post_id);
+        if (post.getUser_id()==user_id){
+            postMapper.deletePost(post_id);
+            return ApiErrorCode.SUCCESS;
+        }
+        return ApiErrorCode.VALIDATE_FAILED;
     }
 }

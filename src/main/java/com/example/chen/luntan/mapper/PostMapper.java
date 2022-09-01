@@ -23,11 +23,15 @@ public interface PostMapper {
 
     int commentsLike(CommentsLike commentsLike);
 
+    int deletePost(int post_id);
+
     int deleteCollects(PostCollects postCollects);
 
     int deleteLike(PostLike postLike);
 
     int deleteCommentsLike(CommentsLike commentsLike);
+
+    List<PostType> selectPostType();
 
     List<PostLike> selectLike(long userId, long postId);
 

@@ -28,6 +28,38 @@
         values (#{user_id},#{followedd_user_id})
     </insert>
 
+    <select id="selectActivation" resultType="user">
+        select * from user
+        where id = #{user_id} and activation_data = #{activation_data};
+    </select>
+
+    <update id="updateIsActivation">
+        update user set is_activation = true
+        where id = #{user_id}
+    </update>
+
+    <update id="updateUserData" parameterType="user_data">
+        update user_data
+            <set>
+                <if test="avatar!=null">
+                    avatar = #{avatar},
+                </if>
+                <if test="name!=null">
+                    name = #{name},
+                </if>
+                <if test="sex!=null">
+                    sex = #{sex},
+                </if>
+                <if test="user_describe!=null">
+                    user_describe = #{user_describe}
+                </if>
+            </set>
+        where user_id = #{user_id};
+    </update>
+
+
+
+
 
 
 

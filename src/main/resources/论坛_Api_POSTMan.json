@@ -1,0 +1,1504 @@
+{
+	"info": {
+		"_postman_id": "baa6a979-345e-4b64-af5b-2c7e6e26656e",
+		"name": "论坛",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23119431"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account\":\"admin\",\"password\":\"asd12300\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/loginUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"loginUser"
+					]
+				},
+				"description": "登录"
+			},
+			"response": [
+				{
+					"name": "登录",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"account\":\"adminmm\",\"password\":\"asd12300\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/loginUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"loginUser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjY5NTN9.Vapur6OwKyUMv8M0i7GmIisc-UWUKFVPhRoblv5U0qM"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:09:13 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": {\n        \"user_id\": 1,\n        \"avatar\": null,\n        \"name\": \"admin\",\n        \"sex\": \"1\",\n        \"type\": 0,\n        \"user_describe\": null,\n        \"create_date\": \"2022-08-22T01:28:58.000+00:00\"\n    },\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "注册",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account\":\"admin\",\"password\":\"asd12300\",\"email\":\"468373637@qq.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/registerUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"registerUser"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "注册",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"account\":\"admin1fd\",\"password\":\"asd12300\",\"email\":\"468363663@qq.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/registerUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"registerUser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:10:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "添加帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MjA0ODg2N30.zWLbtaKU9WxG6NNnBW42npxR1WSnna6Kv6ZtkY0rbcA",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"typeId\":2,\"images\":\"[]\",\"title\":\"测试测试\",\"content\":\"tes萨克等哈就开始的卡号大家卡刷道具卡和数据库的哈萨克就和大家看山东卡速度还是按开机动画就卡死的和安居客上的哈克等哈就开始回到家卡省的礼金卡其实大家肯定是较快拉升大家快来十大科技老师大家快来很多时间卡了后打开降落伞等哈就开始了很多啦是打开拉萨好的较快拉升的艰苦拉萨回到家ask了获得奥克兰较好的拉克丝好的就卡拉斯回到家ask了好的急啊抗衰老慧大师金克拉等哈苏联空军等哈时间考虑的话案件考虑到手机卡死了很多较快拉升后端数据库安理会是的拉伸哈桑即可获得按时艰苦了发哈较快拉升发哈是捷克洛夫啥借口里飞沙尽快立法和较快拉升回房间卢卡斯发货案件考虑是否哈桑风口浪尖哈桑考了几分哈桑李开复安徽弗利萨很费解啊可是联合反恐萨拉回复立法会埃里克森发哈尽快里飞沙离开啥加快了方式啊回复较快拉升睡觉了卡哈佛是t\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/setPost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setPost"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "添加帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"typeId\":2,\"images\":\"[]\",\"title\":\"测试测试\",\"content\":\"tes萨克等哈就开始的卡号大家卡刷道具卡和数据库的哈萨克就和大家看山东卡速度还是按开机动画就卡死的和安居客上的哈克等哈就开始回到家卡省的礼金卡其实大家肯定是较快拉升大家快来十大科技老师大家快来很多时间卡了后打开降落伞等哈就开始了很多啦是打开拉萨好的较快拉升的艰苦拉萨回到家ask了获得奥克兰较好的拉克丝好的就卡拉斯回到家ask了好的急啊抗衰老慧大师金克拉等哈苏联空军等哈时间考虑的话案件考虑到手机卡死了很多较快拉升后端数据库安理会是的拉伸哈桑即可获得按时艰苦了发哈较快拉升发哈是捷克洛夫啥借口里飞沙尽快立法和较快拉升回房间卢卡斯发货案件考虑是否哈桑风口浪尖哈桑考了几分哈桑李开复安徽弗利萨很费解啊可是联合反恐萨拉回复立法会埃里克森发哈尽快里飞沙离开啥加快了方式啊回复较快拉升睡觉了卡哈佛是t\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/setPost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"setPost"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjcwNDN9.s0cdXzEyisvpGsciWbfoHbGIlpBShjl0VKpagZGGxvA"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:10:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取帖子",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getListPost?pg=0&pz=5&type_id=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getListPost"
+					],
+					"query": [
+						{
+							"key": "pg",
+							"value": "0"
+						},
+						{
+							"key": "pz",
+							"value": "5"
+						},
+						{
+							"key": "type_id",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/getListPost?pg=0&pz=5&type_id=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getListPost"
+							],
+							"query": [
+								{
+									"key": "pg",
+									"value": "0"
+								},
+								{
+									"key": "pz",
+									"value": "5"
+								},
+								{
+									"key": "type_id",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:17:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": [\n        {\n            \"id\": 25,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"type_id\": 2,\n            \"post_type\": {\n                \"id\": 2,\n                \"title\": \"分组2\"\n            },\n            \"images\": \"[]\",\n            \"title\": \"测试测试\",\n            \"content\": \"tes萨克等哈就开始的卡号大家卡刷道具卡和数据库的哈萨克就和大家看山东卡速度还是\",\n            \"comments\": 0,\n            \"collects\": 0,\n            \"view\": 0,\n            \"like\": 0,\n            \"create_date\": \"2022-09-01T08:10:44.000+00:00\",\n            \"update_date\": \"2022-09-01T08:10:44.000+00:00\",\n            \"top\": \"0\",\n            \"essence\": \"0\"\n        },\n        {\n            \"id\": 24,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"type_id\": 2,\n            \"post_type\": {\n                \"id\": 2,\n                \"title\": \"分组2\"\n            },\n            \"images\": \"[]\",\n            \"title\": \"测试测试\",\n            \"content\": \"tes萨克等哈就开始的卡号大家卡刷道具卡和数据库的哈萨克就和大家看山东卡速度还是\",\n            \"comments\": 6,\n            \"collects\": 1,\n            \"view\": 3,\n            \"like\": 0,\n            \"create_date\": \"2022-08-31T07:30:09.000+00:00\",\n            \"update_date\": \"2022-08-31T07:30:09.000+00:00\",\n            \"top\": \"0\",\n            \"essence\": \"0\"\n        },\n        {\n            \"id\": 23,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"type_id\": 2,\n            \"post_type\": {\n                \"id\": 2,\n                \"title\": \"分组2\"\n            },\n            \"images\": \"[]\",\n            \"title\": \"道路上空间的\",\n            \"content\": \" 的撒赖扩大金克拉数据库了巨大卡拉时间看来大家离开就撒开了多久啊卡拉时间的卡拉解\",\n            \"comments\": 0,\n            \"collects\": 0,\n            \"view\": 0,\n            \"like\": 0,\n            \"create_date\": \"2022-08-31T06:57:52.000+00:00\",\n            \"update_date\": \"2022-08-31T06:57:55.000+00:00\",\n            \"top\": \"0\",\n            \"essence\": \"0\"\n        },\n        {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"type_id\": 2,\n            \"post_type\": {\n                \"id\": 2,\n                \"title\": \"分组2\"\n            },\n            \"images\": \"[]\",\n            \"title\": \"测试\",\n            \"content\": \"测试\",\n            \"comments\": 0,\n            \"collects\": 0,\n            \"view\": 0,\n            \"like\": 0,\n            \"create_date\": \"2022-08-30T07:10:07.000+00:00\",\n            \"update_date\": \"2022-08-30T07:10:12.000+00:00\",\n            \"top\": \"0\",\n            \"essence\": \"0\"\n        }\n    ],\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "添加评论",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"postId\":26,\"replyId\":0,\"title\":\"ddddddddddddddddddd\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/setPostComments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"setPostComments"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "添加评论",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"postId\":24,\"replyId\":0,\"title\":\"ddddddddddddddddddd\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/setPostComments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"setPostComments"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjc0NDR9.lDwr2izjksKdckkT7U03teKpCkADslna_BmmeK9P7TQ"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:17:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取评论",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getPostComments?postId=26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getPostComments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "26"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取评论",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/getPostComments?postId=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getPostComments"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:17:55 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": [\n        {\n            \"id\": 15,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-09-01T08:17:24.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 14,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T10:59:51.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 13,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T07:48:08.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 12,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T07:48:07.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 11,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T07:48:07.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 10,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T07:48:06.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        },\n        {\n            \"id\": 9,\n            \"user_id\": 1,\n            \"user_data\": {\n                \"avatar\": null,\n                \"name\": \"admin\",\n                \"sex\": \"1\",\n                \"type\": 0\n            },\n            \"post_id\": 24,\n            \"reply_id\": 0,\n            \"create_date\": \"2022-08-31T07:48:05.000+00:00\",\n            \"like\": 0,\n            \"title\": \"ddddddddddddddddddd\"\n        }\n    ],\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取帖子详情",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getPost?postId=24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getPost"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取帖子详情",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/getPost?postId=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getPost"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:18:42 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": {\n        \"id\": 24,\n        \"user_id\": 1,\n        \"user_data\": {\n            \"avatar\": null,\n            \"name\": \"admin\",\n            \"sex\": \"1\",\n            \"type\": 0\n        },\n        \"type_id\": 2,\n        \"post_type\": {\n            \"id\": 2,\n            \"title\": \"分组2\"\n        },\n        \"images\": \"[]\",\n        \"title\": \"测试测试\",\n        \"content\": \"tes萨克等哈就开始的卡号大家卡刷道具卡和数据库的哈萨克就和大家看山东卡速度还是按开机动画就卡死的和安居客上的哈克等哈就开始回到家卡省的礼金卡其实大家肯定是较快拉升大家快来十大科技老师大家快来很多时间卡了后打开降落伞等哈就开始了很多啦是打开拉萨好的较快拉升的艰苦拉萨回到家ask了获得奥克兰较好的拉克丝好的就卡拉斯回到家ask了好的急啊抗衰老慧大师金克拉等哈苏联空军等哈时间考虑的话案件考虑到手机卡死了很多较快拉升后端数据库安理会是的拉伸哈桑即可获得按时艰苦了发哈较快拉升发哈是捷克洛夫啥借口里飞沙尽快立法和较快拉升回房间卢卡斯发货案件考虑是否哈桑风口浪尖哈桑考了几分哈桑李开复安徽弗利萨很费解啊可是联合反恐萨拉回复立法会埃里克森发哈尽快里飞沙离开啥加快了方式啊回复较快拉升睡觉了卡哈佛是t\",\n        \"comments\": 7,\n        \"collects\": 1,\n        \"view\": 4,\n        \"like\": 0,\n        \"create_date\": \"2022-08-31T07:30:09.000+00:00\",\n        \"update_date\": \"2022-08-31T07:30:09.000+00:00\",\n        \"top\": \"0\",\n        \"essence\": \"0\"\n    },\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "点赞帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/like?postId=26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"like"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "26"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "点赞帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/like?postId=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"like"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjc1MzR9.tdToisMghyX21ujp0sq9wcy1-lj42QQKyzy3YkXV9UE"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:18:54 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "收藏帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/collects?postId=26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"collects"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "26"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "收藏帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/collects?postId=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"collects"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjc1NjR9.gDWkQa-0ZWVrDP9ZL0_ruNiHg0nc-J1NJouyJ0xRH2U"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:19:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 202,\n    \"data\": null,\n    \"message\": \"取消\"\n}"
+				}
+			]
+		},
+		{
+			"name": "点赞帖子评论",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/commentsLike?postId=26&commentsId=17",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"commentsLike"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "26"
+						},
+						{
+							"key": "commentsId",
+							"value": "17"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "点赞帖子评论",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjE4NTczNDh9.k_LVIqlAHseQNbAnvs7NHXMl9RaVTabrHdvG1-NHSgY",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/commentsLike?commentsId=14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"commentsLike"
+							],
+							"query": [
+								{
+									"key": "commentsId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "set-Authorization",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjc2MTZ9.yeP_pZnGcIlDgnERSZb4kKfBHcizLwabQON-93GiEcA"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:20:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取帖子分类",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getPostType",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getPostType"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取帖子分类",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/getPostType",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getPostType"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:20:55 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"分组1\"\n        },\n        {\n            \"id\": 2,\n            \"title\": \"分组2\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"分组3\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"分组4\"\n        }\n    ],\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取个人信息",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/getUserData?userId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getUserData"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取个人信息",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/getUserData?userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getUserData"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:54:09 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": {\n        \"user_id\": 1,\n        \"avatar\": null,\n        \"name\": \"admin\",\n        \"sex\": \"1\",\n        \"type\": 0,\n        \"user_describe\": null,\n        \"create_date\": \"2022-08-22T01:28:58.000+00:00\"\n    },\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "获取本人信息",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MjA0ODg2N30.zWLbtaKU9WxG6NNnBW42npxR1WSnna6Kv6ZtkY0rbcA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/getMyUserData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"getMyUserData"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "获取本人信息",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5tbSIsImlkIjoxLCJleHAiOjE2NjIwMjk4MTl9.IIae5ZXhuLQtqn42gPETKrITZu0SgNrf_QWPzSjYYy4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/getMyUserData",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"getMyUserData"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 08:58:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": {\n        \"user_id\": 1,\n        \"avatar\": null,\n        \"name\": \"admin\",\n        \"sex\": \"1\",\n        \"type\": 0,\n        \"user_describe\": null,\n        \"create_date\": \"2022-08-22T01:28:58.000+00:00\"\n    },\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "激活",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/activation?user_id=15&activation_data=3T253RqCtSpW",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"activation"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "15"
+						},
+						{
+							"key": "activation_data",
+							"value": "3T253RqCtSpW"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "激活",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/activation?user_id=14&activation_data=2JVjZ2gpOoYS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"activation"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "14"
+								},
+								{
+									"key": "activation_data",
+									"value": "2JVjZ2gpOoYS"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 10:58:49 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "更新帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":27,\"typeId\":2,\"images\":\"[]\",\"title\":\"测试测试\",\"content\":\"sssss\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/upPost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"upPost"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "更新帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":27,\"typeId\":2,\"images\":\"[]\",\"title\":\"测试测试\",\"content\":\"sssss\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/upPost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"upPost"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 13:58:13 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "删除帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/dePost?postId=27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"dePost"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "27"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "删除帖子",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/dePost?postId=27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"dePost"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "27"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 13:59:36 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		},
+		{
+			"name": "更新个人信息",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MjA0ODg2N30.zWLbtaKU9WxG6NNnBW42npxR1WSnna6Kv6ZtkY0rbcA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"avatar\":null,\"name\":\"hhhh\",\"sex\":true,\"user_describe\":\"这个人很懒\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/upUserData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"upUserData"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "更新个人信息",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTQsImV4cCI6MTY2MjA0NDg3MX0.IdI_otm3DL87mLkNvBF977AEa_IrsKn_gD61disq75U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"avatar\":null,\"name\":\"hhhh\",\"sex\":false,\"user_describe\":\"这个人很懒\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/upUserData",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"upUserData"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Sep 2022 14:07:52 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": null,\n    \"message\": \"操作成功\"\n}"
+				}
+			]
+		}
+	]
+}

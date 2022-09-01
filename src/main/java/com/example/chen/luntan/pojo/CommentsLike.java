@@ -11,6 +11,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 public class CommentsLike {
 
+  private long post_id;
   private long comments_id;
   private long user_id;
 }

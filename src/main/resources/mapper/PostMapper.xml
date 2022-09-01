@@ -12,10 +12,21 @@
     </insert>
 
     <update id="updatePost" parameterType="post">
-        update post set(user_id,type_id,images,title,content,create_date,update_date)
-        values (#{user_id},#{type_id},#{images},#{title},#{content},#{create_date},#{update_date})
+        update post set type_id = #{type_id},images = #{images},title = #{title},content = #{content},update_date = #{update_date}
         where id = #{id};
     </update>
+    <delete id="deletePost" >
+        delete from post_collects where post_id = #{post_id};
+        delete from comments_like where post_id = #{post_id};
+        delete from post_comments where post_id = #{post_id};
+        delete from post_like where post_id = #{post_id};
+        delete from post where id = #{post_id};
+    </delete>
+
+    <delete id="deletePostComments" >
+        delete from post_comments
+        where id = #{id};
+    </delete>
 
     <update id="updateComments" parameterType="post_comments">
         update post_comments set(user_id,post_id,reply_id,create_date,`like`,title)
@@ -103,10 +114,14 @@
         <result property="title" column="pt_title"/>
     </resultMap>
 
+    <select id="selectPostType" resultType="post_type">
+        select * from post_type
+    </select>
+
     <select id="selectPost" resultMap="postMap">
         select p.id, p.user_id, type_id, images, p.title, SUBSTR(content,1,40) content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
         <where>
-        <if test="type_id != -1">
+        <if test="type_id != 0">
         AND type_id = #{type_id}
         </if>
         </where>
@@ -129,8 +144,8 @@
     </insert>
 
     <insert id="commentsLike" parameterType="comments_like">
-        insert into comments_like(user_id,comments_id)
-        values(#{user_id},#{comments_id})
+        insert into comments_like(post_id,user_id,comments_id)
+        values(#{post_id},#{user_id},#{comments_id})
     </insert>
 
     <delete id="deleteLike" parameterType="post_like">

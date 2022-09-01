@@ -1,6 +1,8 @@
 package com.example.chen.luntan.common.api;
 
 
+import jdk.nashorn.internal.parser.Token;
+
 public enum ApiErrorCode implements IErrorCode {
 
     /**
@@ -30,7 +32,9 @@ public enum ApiErrorCode implements IErrorCode {
     /**
      * 参数校验错误
      */
-    VALIDATE_FAILED(404, "参数检验失败");
+    VALIDATE_FAILED(404, "参数检验失败"),
+
+    TOKEN_EXPIRED(405,"token过期或被篡改");
 
 
 
