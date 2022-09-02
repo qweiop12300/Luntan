@@ -2,22 +2,21 @@ package com.example.chen.luntan;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.SneakyThrows;
 
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class SocketTest {
-
+public class SocketTest2 {
     private static String host = "127.0.0.1";
 
     private static int port = 5301;
 
-    static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MjEyMzMyMH0.0D2l-XD-nso-WmalvYA_9C3bIzJjPp6iqwWdBEt5qPk";
+    static String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW5uIiwiaWQiOjE3LCJleHAiOjE2NjIxMjM1MTB9.5NfGrOAdYXy5ToeDapxVKe3UCUAuoAuBdHlODP5vaa8";
 
     public static void main(String[] args) throws Exception {
         client();
@@ -51,7 +50,6 @@ public class SocketTest {
                         socketChannel.read(byteBuffer);
                         byteBuffer.flip();
                         System.out.println("服务端返回数据=======：" + StandardCharsets.UTF_8.decode(byteBuffer).toString());
-                        System.out.println(System.currentTimeMillis());
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -66,7 +64,7 @@ public class SocketTest {
             String s = scanner.nextLine();
             JSONObject news = new JSONObject();
             news.put("content",s);
-            news.put("produce_user_id","17");
+            news.put("produce_user_id","15");
             JSONObject jsonObject3 = new JSONObject();
             jsonObject3.put("type","send");
             JSONObject jsonObject4 = new JSONObject();
@@ -75,12 +73,9 @@ public class SocketTest {
             jsonObject4.put("news",jsonArray);
             jsonObject3.put("data",jsonObject4);
             System.out.println(jsonObject3.toString());
-            System.out.println(System.currentTimeMillis());
             socketChannel.write(StandardCharsets.UTF_8.encode(jsonObject3.toString()));
         }
 
 //        socketChannel.close();
     }
-
-
 }
