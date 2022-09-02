@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +20,8 @@ public class ServerSocketConfig {
     private static Logger log = LoggerFactory.getLogger(ServerSocketConfig.class);
 
     public static ServerSocket serverSocket = null;
+
+    public static Map<String,String> map = new Hashtable<String,String>();
 
     private static final ThreadPoolExecutor threadpool = new ThreadPoolExecutor(15, 15,
             10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
