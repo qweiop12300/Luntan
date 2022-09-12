@@ -23,6 +23,10 @@ public interface UserMapper {
 
     int insertUserAttention(UserAttention userAttention);
 
+    int deleteUserAttention(UserAttention userAttention);
+
+    List<UserAttention> selectUserAttention(UserAttention userAttention);
+
     List<User> selectActivation(long user_id, String activation_data);
 
     int updateIsActivation(long user_id);

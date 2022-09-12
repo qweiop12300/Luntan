@@ -2,6 +2,9 @@ package com.example.chen.luntan.controller;
 
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.ApiResult;
+import com.example.chen.luntan.common.api.IErrorCode;
+import com.example.chen.luntan.pojo.QiNiuToken;
+import com.example.chen.luntan.pojo.UserAttention;
 import com.example.chen.luntan.pojo.UserData;
 import com.example.chen.luntan.pojo.dto.UserDto;
 import com.example.chen.luntan.service.Impl.UserServiceImpl;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController extends BaseController{
@@ -22,7 +27,6 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/loginUser",method = RequestMethod.POST)
     public ApiResult<UserData> loginUser(@RequestBody UserDto user){
         UserData userData = userService.loginUser(user.getAccount(),user.getPassword());
-        System.out.println(userData);
         if(userData!=null){
             setToken(JwtUtil.getToken(userData.getUser_id(),user.getAccount()));
             return ApiResult.success(userData);
@@ -59,11 +63,32 @@ public class UserController extends BaseController{
         return ApiResult.success(userService.getUserData(userId));
     }
 
+
     @RequestMapping(value = "/attention",method = RequestMethod.POST)
     public ApiResult<String> attention(long followed_user_id){
         Long userId = getUserId();
         if(userId!=-1)return ApiResult.failed(userService.attention(userId,followed_user_id));
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/getUserAttention",method = RequestMethod.POST)
+    public ApiResult<List<UserAttention>> getUserAttention(@RequestBody UserAttention userAttention){
+        if (userAttention.getUser_id()==-1){
+            System.out.println(userAttention.toString());
+            long userId = getUserId();
+            if(userId!=-1){
+                if(userAttention.getFollowed_user_id()==-1){
+                    userAttention.setUser_id(0);
+                    userAttention.setFollowed_user_id(userId);
+                }else{
+                    userAttention.setUser_id(userId);
+                }
+            }else{
+                return ApiResult.failed(ApiErrorCode.FORBIDDEN);
+            }
+        }
+        System.out.println(userAttention);
+        return ApiResult.success(userService.selectUserAttention(userAttention));
     }
 
     @RequestMapping(value = "/activation",method = RequestMethod.POST)
@@ -72,4 +97,9 @@ public class UserController extends BaseController{
     }
 
 
+    @RequestMapping(value = "/getQiNiuToken",method = RequestMethod.POST)
+    public ApiResult<QiNiuToken> getQiNiuToken(){
+        long userId = getUserId();
+        return ApiResult.success(userService.getQiNiuToken(userId==-1?0:userId));
+    }
 }

@@ -55,7 +55,8 @@ public class PostController extends BaseController{
 
     @RequestMapping(value = "/getPost",method = RequestMethod.POST)
     public ApiResult<Post> getPost(int postId){
-        return ApiResult.success(postService.getPost(postId));
+        Long userId = getUserId();
+        return ApiResult.success(postService.getPost(postId,userId==-1?0:userId));
     }
 
 
@@ -64,7 +65,9 @@ public class PostController extends BaseController{
         if (pg==null||pz==null){
             return ApiResult.failed(ApiErrorCode.VALIDATE_FAILED);
         }
-        return ApiResult.success(postService.getListPost(pg, pz, type_id));
+        long userId = getUserId();
+
+        return ApiResult.success(postService.getListPost(pg, pz, type_id, userId==-1?0:userId));
     }
 
     @RequestMapping(value = "/setPostComments",method = RequestMethod.POST)
@@ -86,6 +89,7 @@ public class PostController extends BaseController{
     @RequestMapping(value = "/like",method = RequestMethod.POST)
     public ApiResult<String> like(int postId){
         long userId = getUserId();
+        System.out.println(userId+" "+request.getHeader("Authorization"));
         if(userId!=-1){
             return ApiResult.failed(postService.like((int) userId,postId));
         }
@@ -110,7 +114,7 @@ public class PostController extends BaseController{
         return ApiResult.failed(ApiErrorCode.FORBIDDEN);
     }
 
-    @RequestMapping(value = "/getPostType",method = RequestMethod.POST)
+    @RequestMapping(value = "/getPostType")
     public ApiResult<List<PostType>> getPostType(){
         return ApiResult.success(postService.getPostTypeList());
     }

@@ -38,6 +38,12 @@ public class BaseController {
         response.setHeader("set-"+JwtUtil.HEADER_TOKEN_KEY,token);
     }
 
+    public void upToken(String token){
+        response.setHeader("up-"+JwtUtil.HEADER_TOKEN_KEY,token);
+    }
+
+
+
 
     public boolean isLogin(){
         //获取请求头里的token
@@ -49,7 +55,7 @@ public class BaseController {
         try {
             JwtUtil.verify(token);
         }catch (TokenExpiredException e){
-            setToken(updataToken(token));
+            upToken(updataToken(token));
             return false;
         }catch (Exception e){
             return false;

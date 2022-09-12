@@ -19,4 +19,7 @@ public class UserData {
   private String user_describe;
   private java.sql.Timestamp create_date;
 
+  private long attention_size;
+  private long fan_size;
+
 }

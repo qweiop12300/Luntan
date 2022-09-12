@@ -10,9 +10,9 @@ import com.example.chen.luntan.pojo.dto.PostDto;
 import java.util.List;
 
 public interface PostService {
-    public List<Post> getListPost(int pg,int pz,int type_id);
+    public List<Post> getListPost(int pg,int pz,int type_id,long user_id);
 
-    public Post getPost(int id);
+    public Post getPost(int id,long user_id);
 
     public IErrorCode setPost(PostDto postDto);
 

@@ -27,4 +27,6 @@ public class Post {
   private java.sql.Timestamp update_date;
   private Boolean top;
   private Boolean essence;
+  private Long plu;
+  private Long pcu;
 }

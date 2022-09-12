@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,16 +25,16 @@ public class PostServiceImpl implements PostService {
     NewsService newsService;
 
     @Override
-    public List<Post> getListPost(int pg, int pz, int type_id) {
-        List<Post> postList = postMapper.selectPost(pg*pz,pz*(pg+1),type_id);
+    public List<Post> getListPost(int pg, int pz, int type_id,long user_id) {
+        List<Post> postList = postMapper.selectPost(pg*pz,pz*(pg+1),type_id,user_id);
         System.out.println(postList);
         return postList;
     }
 
     @Override
-    public Post getPost(int id) {
+    public Post getPost(int id,long user_id) {
         postMapper.addPostView(id);
-        return postMapper.getPost(id);
+        return postMapper.getPost(id,user_id);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class PostServiceImpl implements PostService {
         if(postDto.getUserId()==0||postDto.getId()==0){
             return ApiErrorCode.VALIDATE_FAILED;
         }
-        Post post = postMapper.getPost(postDto.getId());
+        Post post = postMapper.getPost(postDto.getId(),postDto.getUserId());
         System.out.println(post);
         if (post.getUser_id()==postDto.getUserId()){
             post.setImages(postDto.getImages());
@@ -182,12 +183,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostType> getPostTypeList() {
-        return postMapper.selectPostType();
+        List<PostType> list = new ArrayList<>();
+        list.add(new PostType(0,"全部"));
+        list.addAll(postMapper.selectPostType());
+        return list;
     }
 
     @Override
     public IErrorCode deletePost(int user_id,int post_id) {
-        Post post = postMapper.getPost(post_id);
+        Post post = postMapper.getPost(post_id,user_id);
         if (post.getUser_id()==user_id){
             postMapper.deletePost(post_id);
             return ApiErrorCode.SUCCESS;

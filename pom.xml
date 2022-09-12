@@ -95,6 +95,12 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>[7.7.0, 7.10.99]</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -105,6 +111,7 @@
 				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.xml</include>
+					<include>*.jks</include>
 				</includes>
 				<filtering>true</filtering>
 			</resource>

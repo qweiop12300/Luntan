@@ -1,6 +1,9 @@
 server:
   port: 8081
-
+  ssl:
+    key-store: classpath:太牛了.top.pfx
+    key-store-password: fqm92781a6
+    key-store-type: PKCS12
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

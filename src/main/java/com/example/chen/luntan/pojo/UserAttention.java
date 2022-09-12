@@ -12,7 +12,7 @@ public class UserAttention {
 
   private long id;
   private long user_id;
+  private UserData user_data;
   private long followed_user_id;
-
-
+  private UserData fan_user_data;
 }

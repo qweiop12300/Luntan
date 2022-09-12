@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PostMapper {
 
-    List<Post> selectPost(int first,int last,int type_id);
+    List<Post> selectPost(int first,int last,int type_id,long user_id);
 
     int insertPost(Post post);
 
@@ -46,7 +46,7 @@ public interface PostMapper {
 
     long getPostUserId(long postId);
 
-    Post getPost(long id);
+    Post getPost(long id,long user_id);
 
     long getCommentsUserId(long id);
 

@@ -24,9 +24,58 @@
     </insert>
 
     <insert id="insertUserAttention" parameterType="user_attention">
-        insert into user_attention(user_id,followedd_user_id)
-        values (#{user_id},#{followedd_user_id})
+        insert into user_attention(user_id,followed_user_id)
+        values (#{user_id},#{followed_user_id})
     </insert>
+
+    <resultMap id="user_attentionMap" type="user_attention">
+        <id  column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="followed_user_id" property="followed_user_id"/>
+        <association property="user_data" resultMap="user_dataMap"/>
+        <association property="fan_user_data" resultMap="fan_user_dataMap"/>
+    </resultMap>
+
+    <resultMap id="user_dataMap" type="user_data">
+        <result property="user_id" column="u_id"/>
+        <result property="name" column="u_name"/>
+        <result property="avatar" column="u_avatar"/>
+        <result property="sex" column="u_sex"/>
+        <result property="type" column="u_type"/>
+        <result property="create_date" column="u_cd"/>
+        <result property="user_describe" column="u_ud"/>
+    </resultMap>
+
+    <resultMap id="fan_user_dataMap" type="user_data">
+        <result property="user_id" column="f_id"/>
+        <result property="name" column="f_name"/>
+        <result property="avatar" column="f_avatar"/>
+        <result property="sex" column="f_sex"/>
+        <result property="type" column="f_type"/>
+        <result property="create_date" column="f_cd"/>
+        <result property="user_describe" column="f_ud"/>
+    </resultMap>
+
+    <select id="selectUserAttention" parameterType="user_attention" resultMap="user_attentionMap">
+        select id,ua.user_id user_id,followed_user_id,u.avatar u_avatar,u.name u_name,u.sex u_sex,u.type u_type,u.create_date u_cd,u.user_describe u_ud,u.user_id u_id,
+        f.avatar f_avatar,f.name f_name,f.sex f_sex,f.type f_type,f.create_date f_cd,f.user_describe f_ud,f.user_id f_id
+        from user_attention ua
+        join user_data u on u.user_id = ua.followed_user_id
+        join user_data f on f.user_id = ua.user_id
+        <where>
+            <if test="user_id!=0">
+                and #{user_id} = ua.user_id
+            </if>
+            <if test="followed_user_id!=0">
+                and #{followed_user_id} = ua.followed_user_id
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteUserAttention" parameterType="user_attention">
+        delete from user_attention
+        where #{user_id} = user_id and #{followed_user_id} = followed_user_id
+    </delete>
 
     <select id="selectActivation" resultType="user">
         select * from user

@@ -95,9 +95,11 @@
         <result column="comments" property="comments"/>
         <result column="collects" property="collects"/>
         <result column="view" property="view"/>
-        <result column="`like`" property="like"/>
+        <result column="plike" property="like"/>
         <result column="top" property="top"/>
         <result column="essence" property="essence"/>
+        <result column="plu" property="plu"/>
+        <result column="pcu" property="pcu"/>
         <association property="user_data" resultMap="userDataConciseMap"/>
         <association property="post_type" resultMap="postTypeMap"/>
     </resultMap>
@@ -119,7 +121,10 @@
     </select>
 
     <select id="selectPost" resultMap="postMap">
-        select p.id, p.user_id, type_id, images, p.title, SUBSTR(content,1,40) content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+        select pl.user_id plu,pc.user_id pcu,p.id, p.user_id, type_id, images, p.title, SUBSTR(content,1,40) content, comments, collects, view, `like` plike, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title
+        from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+        left join post_like pl on p.id = pl.post_id and pl.user_id = #{user_id} left join post_collects pc on p.id = pc.post_id and pc.user_id = #{user_id}
+
         <where>
         <if test="type_id != 0">
         AND type_id = #{type_id}
@@ -129,7 +134,8 @@
     </select>
 
     <select id="getPost" resultMap="postMap">
-        select p.id, p.user_id, type_id, images, p.title,content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+        select pl.user_id plu,pc.user_id pcu,p.id, p.user_id, type_id, images, p.title,content, comments, collects, view, `like`, p.create_date, update_date, top, essence,avatar, name, sex, type,pt.id pt_id, pt.title pt_title from post p join user_data u on u.user_id = p.user_id join post_type pt on p.type_id = pt.id
+            left join post_like pl on p.id = pl.post_id and pl.user_id = #{user_id} left join post_collects pc on p.id = pc.post_id and pc.user_id = #{user_id}
         where p.id = #{id}
     </select>
 
@@ -196,11 +202,11 @@
         <result column="reply_id" property="reply_id"/>
         <result column="title" property="title"/>
         <result column="create_date" property="create_date"/>
-        <result column="`like`" property="like"/>
+        <result column="plike" property="like"/>
         <association property="user_data" resultMap="userDataConciseMap"/>
     </resultMap>
     <select id="selectComments" resultMap="selectCommentsMap">
-        select pc.id, pc.user_id, post_id, reply_id, pc.create_date, `like`, title, avatar, name, sex, type from post_comments pc join user_data ud on pc.user_id = ud.user_id
+        select pc.id, pc.user_id, post_id, reply_id, pc.create_date, pc.like plike, title, avatar, name, sex, type from post_comments pc join user_data ud on pc.user_id = ud.user_id
         <where>
             <if test="userId!=0">
                 and pc.user_id = #{userId}
@@ -209,6 +215,7 @@
                 and pc.post_id = #{postId}
             </if>
         </where>
+        order by pc.create_date
     </select>
 
     <select id="selectCommentsLike" resultType="comments_like">
