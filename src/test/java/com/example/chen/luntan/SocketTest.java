@@ -17,7 +17,9 @@ public class SocketTest {
 
     private static int port = 5301;
 
-    static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MjEyMzMyMH0.0D2l-XD-nso-WmalvYA_9C3bIzJjPp6iqwWdBEt5qPk";
+    static String sendId = "20";
+
+    static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MzA4NzUwNX0.DswhRGw3lKc8UA-y3R4Ix4JjisgToPY1SO82bHhB1MI";
 
     public static void main(String[] args) throws Exception {
         client();
@@ -27,16 +29,18 @@ public class SocketTest {
     private static void client() throws Exception {
         //1.创建客户端
         SocketChannel socketChannel = SocketChannel.open();
+
+        Thread.sleep(2000);
         //连接服务端
         socketChannel.connect(new InetSocketAddress("localhost",5301));
         //2 秒后写入数据
-        Thread.sleep(2 * 1000);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type","init");
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1.put("token",token);
         jsonObject.put("data",jsonObject1);
+
         socketChannel.write(StandardCharsets.UTF_8.encode(jsonObject.toString()));
 
         //3.读取服务端返回数据
@@ -45,13 +49,20 @@ public class SocketTest {
             @Override
             public void run() {
                 super.run();
+                StringBuffer stringBuffer = new StringBuffer();
                 while (true){
                     try {
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                        socketChannel.read(byteBuffer);
-                        byteBuffer.flip();
-                        System.out.println("服务端返回数据=======：" + StandardCharsets.UTF_8.decode(byteBuffer).toString());
-                        System.out.println(System.currentTimeMillis());
+                        int i = socketChannel.read(byteBuffer);
+                        if(i==1024){
+                            byteBuffer.flip();
+                            stringBuffer.append(StandardCharsets.UTF_8.decode(byteBuffer).toString());
+                        }else{
+                            byteBuffer.flip();
+                            stringBuffer.append(StandardCharsets.UTF_8.decode(byteBuffer).toString());
+                            System.out.println(JSONObject.parseObject(stringBuffer.toString()).toString());
+                            stringBuffer.setLength(0);
+                        }
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -66,7 +77,7 @@ public class SocketTest {
             String s = scanner.nextLine();
             JSONObject news = new JSONObject();
             news.put("content",s);
-            news.put("produce_user_id","17");
+            news.put("produce_user_id",sendId);
             JSONObject jsonObject3 = new JSONObject();
             jsonObject3.put("type","send");
             JSONObject jsonObject4 = new JSONObject();
@@ -75,7 +86,6 @@ public class SocketTest {
             jsonObject4.put("news",jsonArray);
             jsonObject3.put("data",jsonObject4);
             System.out.println(jsonObject3.toString());
-            System.out.println(System.currentTimeMillis());
             socketChannel.write(StandardCharsets.UTF_8.encode(jsonObject3.toString()));
         }
 

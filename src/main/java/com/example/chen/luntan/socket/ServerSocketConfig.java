@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.chen.luntan.pojo.Message;
 import com.example.chen.luntan.pojo.UserNews;
 import com.example.chen.luntan.service.Impl.NewsServiceImpl;
+import com.example.chen.luntan.service.Impl.UserServiceImpl;
 import com.example.chen.luntan.service.NewsService;
+import com.example.chen.luntan.service.UserService;
 import com.example.chen.luntan.util.JwtUtil;
 import com.example.chen.luntan.util.SpringUtil;
 import org.slf4j.Logger;
@@ -29,6 +32,7 @@ public class ServerSocketConfig {
     private static Logger log = LoggerFactory.getLogger(ServerSocketConfig.class);
 
     private NewsService newsService = SpringUtil.getBean(NewsServiceImpl.class);
+    private UserService userService = SpringUtil.getBean(UserServiceImpl.class);
 
     public static Map<SocketChannel,Long> map = new Hashtable<SocketChannel,Long>();
 
@@ -53,15 +57,10 @@ public class ServerSocketConfig {
                     if(map.containsValue(id)){
                         for (SocketChannel socketChannel:map.keySet()){
                             if(map.get(socketChannel).equals(id)){
-                                JSONObject result = new JSONObject();
-                                result.put("message","新消息");
-                                result.put("type","send");
-                                JSONObject jsonObject1 = new JSONObject();
-                                JSONArray jsonArray = new JSONArray();
-                                jsonArray.add(JSON.toJSON(userNews));
-                                jsonObject1.put("news",jsonArray);
-                                result.put("data",jsonObject1);
-                                socketChannel.write(StandardCharsets.UTF_8.encode(result.toString()));
+                                List<UserNews> list = new ArrayList<>();
+                                list.add(userNews);
+                                Message message = new Message("send","新消息",new Message.Data(null,list));
+                                socketChannel.write(StandardCharsets.UTF_8.encode(JSONObject.toJSONString(message)));
                                 messageMap.remove(userNews);
                             }
                         }
@@ -75,6 +74,7 @@ public class ServerSocketConfig {
 
 
             if(selector.selectNow()!=0){
+                System.out.println(map.toString());
                 System.out.println("开始处理事件=================");
                 // 处理事件
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
@@ -97,6 +97,7 @@ public class ServerSocketConfig {
                             int read = socketChannel.read(byteBuffer);
                             //如果是正常断开 read = -1
                             if (read == -1) {
+                                System.out.println("yes");
                                 //取消事件
                                 if(map.containsKey(socketChannel)){
                                     map.remove(socketChannel);
@@ -112,50 +113,50 @@ public class ServerSocketConfig {
                             byteBuffer.rewind();
                             byteBuffer.limit(byteBuffer.capacity());
 
-                            JSONObject jsonObject = JSONObject.parseObject(str);
-                            JSONObject result = new JSONObject();
-                            String type = jsonObject.getString("type");
+                            Message message = JSONObject.parseObject(str,Message.class);
+                            Message result = new Message();
 
-                            if(type.equals("init")){
-                                Long userId = getUserId(jsonObject.getJSONObject("data").getString("token"));
+
+                            if(message.getType().equals("init")){
+                                Long userId = getUserId(message.getData().getToken());
                                 if(userId!=-1){
                                     map.put(socketChannel,userId);
                                     List<UserNews> list = newsService.selectNews(userId);
-                                    result.put("message","已连接");
-                                    result.put("type","send");
-                                    JSONObject jsonObject1 = new JSONObject();
-                                    jsonObject1.put("news",JSON.toJSON(list));
-                                    result.put("data",jsonObject1);
+                                    System.out.println(list);
+                                    result.setType("send");
+                                    result.setMessage("已连接");
+                                    result.setData(new Message.Data(null,list));
                                     newsService.deleteNews(userId);
                                 }else{
-                                    result.put("message","连接失败");
-                                    result.put("type","upToken");
-                                    result.put("data",null);
+                                    result.setMessage("连接失败");
+                                    result.setType("upToken");
+                                    result.setData(null);
                                 }
-                                ByteBuffer writeBuffer = StandardCharsets.UTF_8.encode(result.toString());
+                                ByteBuffer writeBuffer = StandardCharsets.UTF_8.encode(JSONObject.toJSONString(result));
                                 socketChannel.write(writeBuffer);
                             }
-                            else if(type.equals("send")){
-                                JSONObject jsonObjectData = jsonObject.getJSONObject("data").getJSONArray("news").getJSONObject(0);
+                            else if(message.getType().equals("send")){
+                                UserNews userNews = message.getData().getNews().get(0);
 
-                                result.put("message","成功");
-                                result.put("type","mySend");
+                                result.setMessage("成功");
+                                result.setType("mySend");
 
-                                UserNews userNews = new UserNews();
                                 userNews.setUser_id(map.get(socketChannel).longValue());
-                                userNews.setProduce_user_id(jsonObjectData.getLong("produce_user_id"));
                                 userNews.setPost_id(0);
                                 userNews.setCreate_date(new Timestamp(System.currentTimeMillis()));
                                 userNews.setType(5);
-                                userNews.setContent(jsonObjectData.getString("content"));
 
-                                if(!map.containsValue(jsonObjectData.getLong("produce_user_id"))){
+                                userNews.setUser_data(userService.getUserData(userNews.getUser_id()));
+                                userNews.setP_user_data(userService.getUserData(userNews.getProduce_user_id()));
+                                userNews.setNews_type(newsService.getNewsType(userNews.getType()));
+
+                                if(!map.containsValue(userNews.getProduce_user_id())){
                                     newsService.sendNews(userNews);
                                 }else{
-                                    messageMap.put(userNews,jsonObjectData.getLong("produce_user_id"));
+                                    messageMap.put(userNews,userNews.getProduce_user_id());
                                 }
-                                result.put("news", JSON.toJSON(userNews));
-                                ByteBuffer writeBuffer = StandardCharsets.UTF_8.encode(result.toString());
+                                result.setData(new Message.Data(null,message.getData().getNews()));
+                                ByteBuffer writeBuffer = StandardCharsets.UTF_8.encode(JSONObject.toJSONString(result));
                                 socketChannel.write(writeBuffer);
                             }else {
                                 if(map.containsKey(socketChannel)){
@@ -167,6 +168,7 @@ public class ServerSocketConfig {
                         } catch (IOException e) {
                             e.printStackTrace();
                             //客户端异常断开连接 ，取消事件
+                            System.out.println(socketChannel);
                             if (socketChannel!=null){
                                 if(map.containsKey(socketChannel)){
                                     map.remove(socketChannel);

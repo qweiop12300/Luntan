@@ -10,14 +10,63 @@
         values(#{user_id},#{produce_user_id},#{type},#{post_id},#{create_date},#{content});
     </insert>
 
-    <select id="selectNews" resultType="user_news">
-        select * from user_news
-        where produce_user_id = #{produce_user_id};
+    <resultMap id="user_dataMap" type="user_data">
+        <result property="user_id" column="u_id"/>
+        <result property="name" column="u_name"/>
+        <result property="avatar" column="u_avatar"/>
+        <result property="sex" column="u_sex"/>
+        <result property="type" column="u_type"/>
+        <result property="create_date" column="u_cd"/>
+        <result property="user_describe" column="u_ud"/>
+    </resultMap>
+    <resultMap id="p_user_dataMap" type="user_data">
+        <result property="user_id" column="p_id"/>
+        <result property="name" column="p_name"/>
+        <result property="avatar" column="p_avatar"/>
+        <result property="sex" column="p_sex"/>
+        <result property="type" column="p_type"/>
+        <result property="create_date" column="p_cd"/>
+        <result property="user_describe" column="p_ud"/>
+    </resultMap>
+
+    <resultMap id="news_typeMap" type="news_type">
+        <id property="id" column="nt_id"/>
+        <result property="title" column="nt_title"/>
+    </resultMap>
+
+    <resultMap id="newsMap" type="user_news">
+        <id  column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="produce_user_id" property="produce_user_id"/>
+        <result column="type" property="type"/>
+        <result column="post_id" property="post_id"/>
+        <result column="create_date" property="create_date"/>
+        <result column="content" property="content"/>
+        <association property="user_data" resultMap="user_dataMap"/>
+        <association property="p_user_data" resultMap="p_user_dataMap"/>
+        <association property="news_type" resultMap="news_typeMap"/>
+    </resultMap>
+
+    <select id="selectNews" resultType="user_news" resultMap="newsMap">
+        select un.id id,un.type type,un.produce_user_id produce_user_id,un.user_id user_id,un.create_date create_date,un.content content,un.post_id post_id,
+               u.avatar u_avatar,u.name u_name,u.sex u_sex,u.type u_type,u.create_date u_cd,u.user_describe u_ud,u.user_id u_id,
+               p.avatar p_avatar,p.name p_name,p.sex p_sex,p.type p_type,p.create_date p_cd,p.user_describe p_ud,p.user_id p_id,
+               nt.id nt_id,nt.title nt_title
+        from user_news un
+                 left join user_data u on u.user_id = un.user_id
+                 left join user_data p on p.user_id = un.produce_user_id
+                 left join news_type nt on un.type = nt.id
+        where un.produce_user_id = #{produce_user_id};
     </select>
 
     <delete id="deleteNews">
         delete from user_news
         where produce_user_id = #{produce_user_id};
     </delete>
+
+    <select id="getNewsType" resultType="news_type">
+        select * from news_type
+        where id = #{id}
+    </select>
 
 </mapper>
