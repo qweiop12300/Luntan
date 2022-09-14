@@ -1,6 +1,7 @@
 package com.example.chen.luntan.pojo;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,6 +63,12 @@ public class Message {
         public Data(String token, List<UserNews> news) {
             this.token = token;
             this.news = news;
+        }
+
+        public Data(String token,UserNews userNews) {
+            this.token = token;
+            news= new ArrayList<>();
+            news.add(userNews);
         }
 
         public String getToken() {

@@ -31,12 +31,27 @@ public class ServerSocketConfig {
 
     private static Logger log = LoggerFactory.getLogger(ServerSocketConfig.class);
 
-    private NewsService newsService = SpringUtil.getBean(NewsServiceImpl.class);
-    private UserService userService = SpringUtil.getBean(UserServiceImpl.class);
+    private static NewsService newsService = SpringUtil.getBean(NewsServiceImpl.class);
+    private static UserService userService = SpringUtil.getBean(UserServiceImpl.class);
 
-    public static Map<SocketChannel,Long> map = new Hashtable<SocketChannel,Long>();
+    //在线
+    private static volatile Map<SocketChannel,Long> map = new Hashtable<SocketChannel,Long>();
 
-    public static Map<UserNews,Long> messageMap = new Hashtable<UserNews,Long>();
+    //消息
+    private static volatile Map<UserNews,Long> messageMap = new Hashtable<UserNews,Long>();
+
+    public static void put(UserNews userNews){
+        if (userNews.getNews_type()==null){
+            userNews.setNews_type(newsService.getNewsType(userNews.getType()));
+        }
+        if (userNews.getUser_data()==null){
+            userNews.setUser_data(userService.getUserData(userNews.getUser_id()));
+        }
+        if(userNews.getP_user_data()==null){
+            userNews.setP_user_data(userService.getUserData(userNews.getProduce_user_id()));
+        }
+        messageMap.put(userNews,userNews.getProduce_user_id());
+    }
 
     public void socketCreate() throws IOException {
         Selector selector = Selector.open();
@@ -47,28 +62,28 @@ public class ServerSocketConfig {
         serverSocketChannel.bind(new InetSocketAddress(5301));
         log.info("socket开启成功:5301");
         while (true) {
-
             if(messageMap.size()!=0){
                 System.out.println("-----------------------");
                 System.out.println(messageMap.toString());
                 System.out.println(map.toString());
                 for(UserNews userNews:messageMap.keySet()){
-                    Long id = messageMap.get(userNews);
+                    long id = userNews.getProduce_user_id();
                     if(map.containsValue(id)){
                         for (SocketChannel socketChannel:map.keySet()){
                             if(map.get(socketChannel).equals(id)){
-                                List<UserNews> list = new ArrayList<>();
-                                list.add(userNews);
-                                Message message = new Message("send","新消息",new Message.Data(null,list));
-                                socketChannel.write(StandardCharsets.UTF_8.encode(JSONObject.toJSONString(message)));
-                                messageMap.remove(userNews);
+                                Message message = new Message("send","新消息",new Message.Data(null,userNews));
+                                try {
+                                    socketChannel.write(StandardCharsets.UTF_8.encode(JSONObject.toJSONString(message)));
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                Long userNews1 = messageMap.remove(userNews);
                             }
                         }
                     }else{
                         newsService.sendNews(userNews);
                         messageMap.remove(userNews);
                     }
-
                 }
             }
 
@@ -146,15 +161,8 @@ public class ServerSocketConfig {
                                 userNews.setCreate_date(new Timestamp(System.currentTimeMillis()));
                                 userNews.setType(5);
 
-                                userNews.setUser_data(userService.getUserData(userNews.getUser_id()));
-                                userNews.setP_user_data(userService.getUserData(userNews.getProduce_user_id()));
-                                userNews.setNews_type(newsService.getNewsType(userNews.getType()));
+                                put(userNews);
 
-                                if(!map.containsValue(userNews.getProduce_user_id())){
-                                    newsService.sendNews(userNews);
-                                }else{
-                                    messageMap.put(userNews,userNews.getProduce_user_id());
-                                }
                                 result.setData(new Message.Data(null,message.getData().getNews()));
                                 ByteBuffer writeBuffer = StandardCharsets.UTF_8.encode(JSONObject.toJSONString(result));
                                 socketChannel.write(writeBuffer);

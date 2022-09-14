@@ -89,7 +89,6 @@ public class PostController extends BaseController{
     @RequestMapping(value = "/like",method = RequestMethod.POST)
     public ApiResult<String> like(int postId){
         long userId = getUserId();
-        System.out.println(userId+" "+request.getHeader("Authorization"));
         if(userId!=-1){
             return ApiResult.failed(postService.like((int) userId,postId));
         }

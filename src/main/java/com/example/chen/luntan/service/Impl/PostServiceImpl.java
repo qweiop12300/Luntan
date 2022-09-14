@@ -8,6 +8,7 @@ import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.NewsService;
 import com.example.chen.luntan.service.PostService;
+import com.example.chen.luntan.socket.ServerSocketConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,7 +89,7 @@ public class PostServiceImpl implements PostService {
                     .create_date(new Timestamp(System.currentTimeMillis()))
                     .type(2)
                     .build();
-            newsService.sendNews(userNews);
+            ServerSocketConfig.put(userNews);
             return ApiErrorCode.SUCCESS;
         }
         return ApiErrorCode.FAILED;
@@ -118,7 +119,7 @@ public class PostServiceImpl implements PostService {
                         .create_date(new Timestamp(System.currentTimeMillis()))
                         .type(4)
                         .build();
-                newsService.sendNews(userNews);
+                ServerSocketConfig.put(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }
@@ -145,7 +146,7 @@ public class PostServiceImpl implements PostService {
                         .create_date(new Timestamp(System.currentTimeMillis()))
                         .type(3)
                         .build();
-                newsService.sendNews(userNews);
+                ServerSocketConfig.put(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }
@@ -171,9 +172,9 @@ public class PostServiceImpl implements PostService {
                         .produce_user_id(postMapper.getCommentsUserId(commentsId))
                         .post_id(postMapper.getCommentsPostId(commentsId))
                         .create_date(new Timestamp(System.currentTimeMillis()))
-                        .type(4)
+                        .type(3)
                         .build();
-                newsService.sendNews(userNews);
+                ServerSocketConfig.put(userNews);
 
                 return ApiErrorCode.SUCCESS;
             }

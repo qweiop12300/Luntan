@@ -3,13 +3,11 @@ package com.example.chen.luntan.service.Impl;
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.IErrorCode;
 import com.example.chen.luntan.mapper.UserMapper;
-import com.example.chen.luntan.pojo.QiNiuToken;
-import com.example.chen.luntan.pojo.User;
-import com.example.chen.luntan.pojo.UserAttention;
-import com.example.chen.luntan.pojo.UserData;
+import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.UserDto;
 import com.example.chen.luntan.service.NewsService;
 import com.example.chen.luntan.service.UserService;
+import com.example.chen.luntan.socket.ServerSocketConfig;
 import com.example.chen.luntan.util.EmailUtil;
 import com.example.chen.luntan.util.MD5Utils;
 import com.example.chen.luntan.util.RandomStringUtil;
@@ -94,6 +92,14 @@ public class UserServiceImpl implements UserService {
             userMapper.deleteUserAttention(userAttention);
             return ApiErrorCode.CANCEL;
         }
+        UserNews userNews = UserNews.builder()
+                .user_id(user_id)
+                .produce_user_id(followed_user_id)
+                .post_id(0)
+                .create_date(new Timestamp(System.currentTimeMillis()))
+                .type(1)
+                .build();
+        ServerSocketConfig.put(userNews);
         if(userMapper.insertUserAttention(userAttention)>0)return ApiErrorCode.SUCCESS;
         return ApiErrorCode.FAILED;
     }

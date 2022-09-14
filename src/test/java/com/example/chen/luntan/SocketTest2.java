@@ -16,7 +16,7 @@ public class SocketTest2 {
 
     private static int port = 5301;
 
-    static String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicXdlaW9wMTIzIiwiaWQiOjIwLCJleHAiOjE2NjMwODgwNzR9.SnKSNFZZ7vGjjA-h2JyXB4G8vToQkWriUCAqV2mw4rI";
+    static String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicXdlaW9wMTIzIiwiaWQiOjIwLCJleHAiOjE2NjMxNzE0MzB9.MmBra1aBN7LYH6JaHu4r9q0ryO5oD7etUzJ__A2YOSM";
 
     static String sendId = "15";
 

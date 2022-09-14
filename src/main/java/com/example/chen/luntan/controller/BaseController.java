@@ -35,7 +35,8 @@ public class BaseController {
     }
 
     public void setToken(String token){
-        response.setHeader("set-"+JwtUtil.HEADER_TOKEN_KEY,token);
+        response.addHeader("set-"+JwtUtil.HEADER_TOKEN_KEY,token);
+        response.setHeader("set-UserId",JwtUtil.getToken(token).getClaim("id").asLong()+"");
     }
 
     public void upToken(String token){
