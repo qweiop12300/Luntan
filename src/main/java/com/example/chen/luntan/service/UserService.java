@@ -14,6 +14,8 @@ public interface UserService {
 
     public UserData getUserData(long id);
 
+    public List<UserData> getUserDataList(List<Long> list);
+
     public IErrorCode registerUser(UserDto user);
 
     public UserData loginUser(String account, String password);

@@ -15,6 +15,8 @@ public interface UserMapper {
 
     User getUser(String account);
 
+    List<UserData> getUserDataList(List<Long> list);
+
     UserData getUserData(long id);
 
     int insertUser(User user);

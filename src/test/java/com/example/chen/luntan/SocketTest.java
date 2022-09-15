@@ -19,7 +19,7 @@ public class SocketTest {
 
     static String sendId = "20";
 
-    static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MzE3MTA4OH0.chns2-Zq5a7EJJH8w0ceGFyZ32KpFeoxDKZuC_7piv0";
+    static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiZGVtb3NzcyIsImlkIjoyMSwiZXhwIjoxNjYzMjQ5MDU2fQ.z0I2As60Ixq8-PKC2SiwZELn17NOArgPTZG63ltRlgA";
 
     public static void main(String[] args) throws Exception {
         client();

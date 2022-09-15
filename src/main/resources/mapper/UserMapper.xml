@@ -13,6 +13,14 @@
         select * from user_data where user_id = #{id};
     </select>
 
+    <select id="getUserDataList" parameterType="java.util.List" resultType="user_data">
+        select * from user_data
+        where user_id in
+        <foreach collection="list" close=")" open="(" item="item_id" separator=",">
+            #{item_id}
+        </foreach>
+    </select>
+
     <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user(account, password, email,is_activation, activation_data)
         values (#{account},#{password},#{email},false,#{activation_data});

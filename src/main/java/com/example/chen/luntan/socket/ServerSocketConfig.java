@@ -41,14 +41,10 @@ public class ServerSocketConfig {
     private static volatile Map<UserNews,Long> messageMap = new Hashtable<UserNews,Long>();
 
     public static void put(UserNews userNews){
+        userNews.setP_user_data(null);
+        userNews.setUser_data(null);
         if (userNews.getNews_type()==null){
             userNews.setNews_type(newsService.getNewsType(userNews.getType()));
-        }
-        if (userNews.getUser_data()==null){
-            userNews.setUser_data(userService.getUserData(userNews.getUser_id()));
-        }
-        if(userNews.getP_user_data()==null){
-            userNews.setP_user_data(userService.getUserData(userNews.getProduce_user_id()));
         }
         messageMap.put(userNews,userNews.getProduce_user_id());
     }
@@ -159,7 +155,7 @@ public class ServerSocketConfig {
                                 userNews.setUser_id(map.get(socketChannel).longValue());
                                 userNews.setPost_id(0);
                                 userNews.setCreate_date(new Timestamp(System.currentTimeMillis()));
-                                userNews.setType(5);
+                                userNews.setType(1);
 
                                 put(userNews);
 

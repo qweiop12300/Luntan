@@ -16,9 +16,9 @@ public class SocketTest2 {
 
     private static int port = 5301;
 
-    static String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicXdlaW9wMTIzIiwiaWQiOjIwLCJleHAiOjE2NjMxNzE0MzB9.MmBra1aBN7LYH6JaHu4r9q0ryO5oD7etUzJ__A2YOSM";
+    static String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6MTUsImV4cCI6MTY2MzI1MDg3Mn0.pU279Z8saFj1_QkAvmtZWJGkPzT3Z3gEoHQy_A2IX-g";
 
-    static String sendId = "15";
+    static String sendId = "21";
 
     public static void main(String[] args) throws Exception {
         client();

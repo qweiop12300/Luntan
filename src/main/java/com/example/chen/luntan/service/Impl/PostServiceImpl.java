@@ -87,7 +87,7 @@ public class PostServiceImpl implements PostService {
                     .produce_user_id(postMapper.getPostUserId(postCommentsDto.getPostId()))
                     .post_id(postCommentsDto.getPostId())
                     .create_date(new Timestamp(System.currentTimeMillis()))
-                    .type(2)
+                    .type(3)
                     .build();
             ServerSocketConfig.put(userNews);
             return ApiErrorCode.SUCCESS;
@@ -144,7 +144,7 @@ public class PostServiceImpl implements PostService {
                         .produce_user_id(postMapper.getPostUserId(postId))
                         .post_id(postId)
                         .create_date(new Timestamp(System.currentTimeMillis()))
-                        .type(3)
+                        .type(2)
                         .build();
                 ServerSocketConfig.put(userNews);
 
@@ -172,7 +172,7 @@ public class PostServiceImpl implements PostService {
                         .produce_user_id(postMapper.getCommentsUserId(commentsId))
                         .post_id(postMapper.getCommentsPostId(commentsId))
                         .create_date(new Timestamp(System.currentTimeMillis()))
-                        .type(3)
+                        .type(2)
                         .build();
                 ServerSocketConfig.put(userNews);
 

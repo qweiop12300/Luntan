@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,6 +41,14 @@ public class UserServiceImpl implements UserService {
         userAttention.setFollowed_user_id(id);
         userData.setFan_size(userMapper.selectUserAttention(userAttention).size());
         return userData;
+    }
+
+    @Override
+    public List<UserData> getUserDataList(List<Long> list) {
+        if (list!=null&&list.size()!=0){
+            return userMapper.getUserDataList(list);
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -97,7 +106,7 @@ public class UserServiceImpl implements UserService {
                 .produce_user_id(followed_user_id)
                 .post_id(0)
                 .create_date(new Timestamp(System.currentTimeMillis()))
-                .type(1)
+                .type(5)
                 .build();
         ServerSocketConfig.put(userNews);
         if(userMapper.insertUserAttention(userAttention)>0)return ApiErrorCode.SUCCESS;

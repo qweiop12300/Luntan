@@ -63,6 +63,11 @@ public class UserController extends BaseController{
         return ApiResult.success(userService.getUserData(userId));
     }
 
+    @RequestMapping(value = "/getUserDataList",method = RequestMethod.POST)
+    public ApiResult<List<UserData>> getUserDataList(@RequestBody List<Long> list){
+        return ApiResult.success(userService.getUserDataList(list));
+    }
+
 
     @RequestMapping(value = "/attention",method = RequestMethod.POST)
     public ApiResult<String> attention(long followed_user_id){
