@@ -26,8 +26,8 @@ public class PostServiceImpl implements PostService {
     NewsService newsService;
 
     @Override
-    public List<Post> getListPost(int pg, int pz, int type_id,long user_id) {
-        List<Post> postList = postMapper.selectPost(pg*pz,pz*(pg+1),type_id,user_id);
+    public List<Post> getListPost(int pg, int pz, int type_id,long user_id,long uid) {
+        List<Post> postList = postMapper.selectPost(pg*pz,pz*(pg+1),type_id,user_id,uid);
         System.out.println(postList);
         return postList;
     }
@@ -198,5 +198,15 @@ public class PostServiceImpl implements PostService {
             return ApiErrorCode.SUCCESS;
         }
         return ApiErrorCode.VALIDATE_FAILED;
+    }
+
+    @Override
+    public List<PostCollects> getCollects(int userId, int postId) {
+        return postMapper.selectCollects(userId,postId);
+    }
+
+    @Override
+    public List<PostLike> getLike(int userId, int postId) {
+        return postMapper.selectLike(userId,postId);
     }
 }

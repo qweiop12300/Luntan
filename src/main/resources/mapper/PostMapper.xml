@@ -129,6 +129,9 @@
         <if test="type_id != 0">
         AND type_id = #{type_id}
         </if>
+        <if test="uid != 0">
+            AND p.user_id = #{uid}
+        </if>
         </where>
         order by update_date desc limit #{first},#{last};
     </select>

@@ -2,9 +2,7 @@ package com.example.chen.luntan.controller;
 
 import com.example.chen.luntan.common.api.ApiErrorCode;
 import com.example.chen.luntan.common.api.ApiResult;
-import com.example.chen.luntan.pojo.Post;
-import com.example.chen.luntan.pojo.PostComments;
-import com.example.chen.luntan.pojo.PostType;
+import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 import com.example.chen.luntan.service.PostService;
@@ -61,13 +59,14 @@ public class PostController extends BaseController{
 
 
     @RequestMapping(value = "/getListPost",method = RequestMethod.POST)
-    public ApiResult<List<Post>> getListPost(Integer pg, Integer pz, Integer type_id){
+    public ApiResult<List<Post>> getListPost(Integer pg, Integer pz, Integer type_id,Integer uid){
         if (pg==null||pz==null){
             return ApiResult.failed(ApiErrorCode.VALIDATE_FAILED);
         }
+        if (uid==null)uid=0;
         long userId = getUserId();
 
-        return ApiResult.success(postService.getListPost(pg, pz, type_id, userId==-1?0:userId));
+        return ApiResult.success(postService.getListPost(pg, pz, type_id, userId==-1?0:userId,uid));
     }
 
     @RequestMapping(value = "/setPostComments",method = RequestMethod.POST)
@@ -82,8 +81,8 @@ public class PostController extends BaseController{
     }
 
     @RequestMapping(value = "/getPostComments",method = RequestMethod.POST)
-    public ApiResult<List<PostComments>> getPostComments(int postId){
-        return ApiResult.success(postService.getPostComments(0,postId));
+    public ApiResult<List<PostComments>> getPostComments(int postId,int userId){
+        return ApiResult.success(postService.getPostComments(userId,postId));
     }
 
     @RequestMapping(value = "/like",method = RequestMethod.POST)
@@ -118,5 +117,13 @@ public class PostController extends BaseController{
         return ApiResult.success(postService.getPostTypeList());
     }
 
+    @RequestMapping(value = "/getPostLike",method = RequestMethod.POST)
+    public ApiResult<List<PostLike>> getPostLike(int userId){
+        return ApiResult.success(postService.getLike(userId,0));
+    }
+    @RequestMapping(value = "/getPostCollects",method = RequestMethod.POST)
+    public ApiResult<List<PostCollects>> getPostCollects(int userId){
+        return ApiResult.success(postService.getCollects(userId,0));
+    }
 
 }

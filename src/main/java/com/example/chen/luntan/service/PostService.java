@@ -1,16 +1,14 @@
 package com.example.chen.luntan.service;
 
 import com.example.chen.luntan.common.api.IErrorCode;
-import com.example.chen.luntan.pojo.Post;
-import com.example.chen.luntan.pojo.PostComments;
-import com.example.chen.luntan.pojo.PostType;
+import com.example.chen.luntan.pojo.*;
 import com.example.chen.luntan.pojo.dto.PostCommentsDto;
 import com.example.chen.luntan.pojo.dto.PostDto;
 
 import java.util.List;
 
 public interface PostService {
-    public List<Post> getListPost(int pg,int pz,int type_id,long user_id);
+    public List<Post> getListPost(int pg,int pz,int type_id,long user_id,long uid);
 
     public Post getPost(int id,long user_id);
 
@@ -21,6 +19,10 @@ public interface PostService {
     public IErrorCode setPostComments(PostCommentsDto postCommentsDto);
 
     public List<PostComments> getPostComments(int userId,int postId);
+
+    public List<PostCollects> getCollects(int userId, int postId);
+
+    public List<PostLike> getLike(int userId,int postId);
 
     public IErrorCode collects(int userId,int postId);
 
