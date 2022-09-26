@@ -39,4 +39,4 @@
 
 #### 在线Api: https://documenter.getpostman.com/view/23119431/VUxPv7eq
 
-#### PostMan_Json: https://www.postman.com/collections/9bad19b69476b8b014a4
+#### Android 客户端 https://github.com/qweiop12300/qingfengBBS
